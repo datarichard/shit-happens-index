@@ -1,0 +1,16 @@
+---
+title: "shit happens index"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Estimating coefficients for measuring psychological distress resulting from various life events  
+
+<br>
+
+## Extension and validation of stressful life events schedule
+
+Instruments for measuring the severity of psychological distress resulting from recent life experiences were originally developed in the 1960s, and are used by clinicians today to identify and predict sources of patient stress. The instrument consists of a checklist containing a list of major life events (e.g., divorce, bankruptcy, death of a loved one), and a weighting is assigned to each item that was determined by asking research volunteers to anticipate the severity of stress that was expected from its occurrence. However people are notoriously poor at anticipating their emotional reaction to significant events, and large population-based surveys can now provide data which tracks self-reported distress levels after survey respondants have experienced the life event. This provides an opportunity to calculate weights based on experienced distress levels rather than anticipated distress, and so can provide a way to base clinical predictions on empirical evidence. Our other work (`shit-happens`) has determined the causal effect of major life events on clinically-relevant distress measures in large population-based survey data. We have also developed methods and resources to interrogate large datasets and calculate the necessary regression weights in new data. Ethics permission to access two large candidate public datasets are in place. This project requires requesting access to the data, cross-validation of the regression weights, and the results will form the basis of a publication to update  current clinical instruments to improve care in Australia.
