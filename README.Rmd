@@ -122,7 +122,12 @@ map(fits, ~tidy(., effects = "fixed", conf.int = T)) %>%
   save_as_image(path = "results/weight_table_1.png")
 ```
 
-![table 1](results/weight_table_1.png "Table 1")
+<img src="results/weight_table_1.png" alt="Table 1" style="height: 800px;"/>
+
+
+```{r include=F}
+#![table 1](results/weight_table_1.png "Table 1")
+```
 
 <br><br>
 
