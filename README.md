@@ -32,58 +32,50 @@ current clinical instruments to improve care in Australia.
 Stressful life events have been identified as a risk factor for a
 variety of physical and mental illnesses such as cardiovascular disease,
 cancer, metabolic syndrome, and depression (Bahri et al., 2019; Kessler,
-1997; Slopen et al., 2011). Epidemiological research often assesses the
-impact of life-events through summed checklists that treat events as
-equal or just evaluates the impact of one event (Dohrenwend, 2006; Gray
-et al., 2004; Wethington et al., 1997). For example, the Life Events
-Checklist (LEC) (Gray et al., 2004) is a checklist of events which are
-associated with the aetiology of PTSD; responders must indicate the
-degree of exposure (e.g., directly experienced vs witnessed vs heard
-about), but the LEC does not distinguish events by the magnitude of
-associated distress. Holmes and Rahe’s Social Readjustment Scale (Holmes
-and Rahe, 1967) provides weights based on research volunteers
-anticipation of the severity of stress expected; so for instance
-marriage is weighted as the sixth most stressful event, but these
-weights are not based on experience or empirically observed stress
-levels.
+1997; Slopen et al., 2011). Today, clinicians and epidemiologists often
+assesses the impact of life-events through summed checklists that treat
+events as equal (Dohrenwend, 2006; Gray et al., 2004; Wethington et al.,
+1997). For example, the Life Events Checklist (LEC) (Gray et al., 2004)
+is a checklist of events which are associated with the aetiology of
+PTSD; responders must indicate the degree of exposure (e.g., directly
+experienced vs witnessed vs heard about), but the LEC does not
+distinguish the amount of distress from the event itself. A key feature
+of such checklists is that all life events are treated as equivalent,
+along with the implicit assumption that different life events have
+equivalent impacts on distress.
 
-<br>
+The original instrument to measure life events was Holmes and Rahe’s
+Social Readjustment Rating Scale (SRRS) (Holmes and Rahe, 1967), and
+this included weights to distinguish and quantify the amount of stress
+associated with each event. The publication of the SRRS led to an
+enormous amount of research on the relationship between life events and
+various types of illness onset (typically screening scales of
+nonspecific psychological distress), with over 1000 papers using the
+SRRS published in the first decade after its development (Kessler, 1997;
+**holmes1979?**). It’s reputed advance was in adapting the
+psychophysical procedure of magnitude estimation to quantify the
+stressfulness of an event (Dohrenwend and Dohrenwend, 1974), which was
+entirely based on the amount of stress anticipated by research
+volunteers when imagining the event. Subsequent methodological critiques
+pointed out the limitations of this method (Dohrenwend and Dohrenwend,
+1974; Zimmerman, 1983); and within the set of fairly serious events
+included in SRRS life event checklists, the use of differential weights
+does not markedly increase the association between life event scales and
+measures of distress (Tibubos et al., 2021; Zimmerman, 1983). Thus it is
+not clear whether and how operationalization of a differential weight
+improves the predictive value of life events checklists over and above
+frequency or the sum of exposure, and this widely appreciated limitation
+has led to the proliferation of summed checklists (Turner & Wheaton
+1995).
 
-#### Brief review of checklist research (taken from Kessler, 1997)
-
-The intellectual origin of the checklist approach is usually traced to
-Adolf Meyer’s use of a “life chart” to summarize information provided by
-patients at intake (Lief 1948), the subsequent use of the life chart
-method by Wolff and his colleagues (1950) to study the relationship
-between life change and illness onset, and the eventual refinement of
-this method by Holmes & Rahe (1967) in the Social Readjustment Rating
-Scale (SRRS). A key feature of the checklist approach is that all life
-events of a given type are treated as equivalent.
-
-The publication of the SRRS led to an enormous amount of research on the
-relationship between life events and various types of illness onset,
-with over 1000 papers using the SRRS published in the first decade after
-its development (Holmes 1979). Subsequent research with mental health
-outcomes (typically screening scales of nonspecific psychological
-distress) led to refinements and proliferation of life event checklists
-(Turner & Wheaton 1995).
-
-In addition, methodological studies of the SRRS and the various
-checklists based on it were carried out. The main results of these
-studies were as follows: 1. Negative events are much more powerful
-predictors of mental health outcomes than positive events (Zautra and
-Reich, 1983), which led to the conclusion that life change is not the
-central dimension linking stressful life events to psychological
-disorder and that the LCU weighting approach in the SRRS leads to an
-underestimation of life event effects. 2. Within the set of fairly
-serious events typically included in life event checklists like the
-SRRS, the use of differential weights does not markedly increase the
-association between negative life event scales and measures of
-psychological distress (Zimmerman, 1983). 3. However, distinctions along
-a number of other dimensions (e.g. amount of loss, amount of threat,
-degree of controllability of consequences of the event) do lead to
-substantial increases in the association between negative life event
-scales and measures of distress (Thoits 1983).
+> In addition, methodological studies of the SRRS (and the various
+> checklists based on it) also demonstrated that negative events are
+> much more powerful predictors of mental health outcomes than positive
+> events (Zautra and Reich, 1983), and that distinctions along a number
+> of other dimensions (e.g. amount of loss, amount of threat, degree of
+> controllability of consequences of the event) do lead to substantial
+> increases in the association between negative life event scales and
+> measures of distress (Thoits 1983).
 
 <br><br>
 
@@ -184,6 +176,20 @@ considered here).
 
 ## Discussion
 
+The use of generic weights rather than subjective weights is promoted on
+the grounds that generic weights are *a priori* independent from the
+experience of the event, and so can predict consequences of the stress
+exposure such as the risk of poor health. Interestingly the
+rank-ordering of life events assigned by diverse subgroups are often
+highly correlated (*ρ* \> 0.9), suggesting a shared or generalizable
+experience of stress, which also supports the use of generic weights.
+Others have argued the generalizability of any life event scale will be
+limited to the population on which the weights were developed (@
+Dohrenwend and Dohrenwend, 1974; Zimmerman, 1983). The HILDA sample on
+which our weights were developed was selected so as to be representative
+of Australia, but we expect the weights would be equally applicable to
+other developed Western nations.
+
 <br>
 
 ##### Limitations
@@ -199,13 +205,14 @@ conflict and infidelity) (Dohrenwend, 2006)
 Problems in defining and sampling the relevant population for stressful
 life events are often present in life events research (see Dohrenwend
 and Dohrenwend, 1974), but are minimised here by probabilistic sampling
-of the Australian population. The relationship between a stressful life
-event and a health outcome can be interpreted as causal when exposure to
-the event occurred for reasons that are random with respect to the
-outcome (Kessler, 1997), which is the case here under HILDA’s
-probabilistic sampling method. However selection bias may still exist if
-some victims are less likely to report an event than others (e.g.,
-homelessness, sexual assault, or severely affected sufferers).
+of the Australian population in HILDA. Furthermore, the relationship
+between a stressful life event and a health outcome can be interpreted
+as causal when exposure to the event occurred for reasons that are
+random with respect to the outcome (Kessler, 1997), which is the case
+here under HILDA’s probabilistic sampling method. However selection bias
+may still exist if some victims are less likely to report an event than
+others (e.g., homelessness, sexual assault, or severely affected
+sufferers).
 
 <br><br>
 
@@ -270,6 +277,17 @@ Slopen, N., Williams, D.R., Fitzmaurice, G.M., Gilman, S.E., 2011. Sex,
 stressful life events, and adult onset depression and alcohol
 dependence: Are men and women equally vulnerable? Social Science &
 Medicine 73, 615–622.
+
+</div>
+
+<div id="ref-tibubos2021frequency" class="csl-entry">
+
+Tibubos, A.N., Burghardt, J., Klein, E.M., Brähler, E., Jünger, C.,
+Michal, M., Wiltink, J., Wild, P.S., Münzel, T., Singer, S., others,
+2021. [Frequency of stressful life events and associations with mental
+health and general subjective health in the general
+population](https://link.springer.com/article/10.1007/s10389-020-01204-3).
+Journal of Public Health 29, 1071–1080.
 
 </div>
 
