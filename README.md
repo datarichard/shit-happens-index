@@ -16,7 +16,7 @@ list of major life events (e.g., divorce, bankruptcy, death of a loved
 one), and a weighting is assigned to each item that was determined by
 asking research volunteers to anticipate the severity of stress that was
 expected from its occurrence. However people are notoriously poor at
-anticipating their emotional reaction to significant events, and large
+anticipating their emotional reaction to abstract events, and large
 population-based surveys can now provide data which tracks self-reported
 distress levels after survey respondants have experienced the life
 event. This provides an opportunity to calculate weights based on
@@ -24,23 +24,78 @@ experienced distress levels rather than anticipated distress, and so can
 provide a way to base clinical predictions on empirical evidence. Our
 other work (`shit-happens`) has determined the causal effect of major
 life events on clinically-relevant distress measures in large
-population-based survey data. We have also developed methods and
-resources to interrogate large datasets and calculate the necessary
-regression weights in new data. Ethics permission to access two large
-candidate public datasets are in place. This project requires requesting
-access to the data, cross-validation of the regression weights, and the
-results will form the basis of a publication to update current clinical
-instruments to improve care in Australia.
+population-based survey data, and results from this project will update
+current clinical instruments to improve care in Australia.
 
-Holmes and Rahe’s Social Readjustment Scale (Holmes and Rahe, 1967)
-weights marriage as the sixth most stressful event yet we found no
-negative impact on affective wellbeing and a profound anticipatory and
-subsequent positive effect on life satisfaction.
+#### Background
 
-Epidemiological research often assesses the impact of life-events
-through summed checklists that treat events as equal or just evaluates
-the impact of one event (Dohrenwend, 2006; Gray et al., 2004; Wethington
-et al., 1997).
+Stressful life events have been identified as a risk factor for a
+variety of physical and mental illnesses such as cardiovascular disease,
+cancer, metabolic syndrome, and depression (Bahri et al., 2019; Kessler,
+1997; Slopen et al., 2011). Epidemiological research often assesses the
+impact of life-events through summed checklists that treat events as
+equal or just evaluates the impact of one event (Dohrenwend, 2006; Gray
+et al., 2004; Wethington et al., 1997). For example, the Life Events
+Checklist (LEC) (Gray et al., 2004) is a checklist of events which are
+associated with the aetiology of PTSD; responders must indicate the
+degree of exposure (e.g., directly experienced vs witnessed vs heard
+about), but the LEC does not distinguish events by the magnitude of
+associated distress. Holmes and Rahe’s Social Readjustment Scale (Holmes
+and Rahe, 1967) provides weights based on research volunteers
+anticipation of the severity of stress expected; so for instance
+marriage is weighted as the sixth most stressful event, but these
+weights are not based on experience or empirically observed stress
+levels.
+
+<br>
+
+#### Brief review of checklist research (taken from Kessler, 1997)
+
+The intellectual origin of the checklist approach is usually traced to
+Adolf Meyer’s use of a “life chart” to summarize information provided by
+patients at intake (Lief 1948), the subsequent use of the life chart
+method by Wolff and his colleagues (1950) to study the relationship
+between life change and illness onset, and the eventual refinement of
+this method by Holmes & Rahe (1967) in the Social Readjustment Rating
+Scale (SRRS). A key feature of the checklist approach is that all life
+events of a given type are treated as equivalent.
+
+The publication of the SRRS led to an enormous amount of research on the
+relationship between life events and various types of illness onset,
+with over 1000 papers using the SRRS published in the first decade after
+its development (Holmes 1979). Subsequent research with mental health
+outcomes (typically screening scales of nonspecific psychological
+distress) led to refinements and proliferation of life event checklists
+(Turner & Wheaton 1995).
+
+In addition, methodological studies of the SRRS and the various
+checklists based on it were carried out. The main results of these
+studies were as follows: 1. Negative events are much more powerful
+predictors of mental health outcomes than positive events (Zautra and
+Reich, 1983), which led to the conclusion that life change is not the
+central dimension linking stressful life events to psychological
+disorder and that the LCU weighting approach in the SRRS leads to an
+underestimation of life event effects. 2. Within the set of fairly
+serious events typically included in life event checklists like the
+SRRS, the use of differential weights does not markedly increase the
+association between negative life event scales and measures of
+psychological distress (Zimmerman, 1983). 3. However, distinctions along
+a number of other dimensions (e.g. amount of loss, amount of threat,
+degree of controllability of consequences of the event) do lead to
+substantial increases in the association between negative life event
+scales and measures of distress (Thoits 1983).
+
+<br><br>
+
+##### To do list
+
+-   Add estimated prevalence of each event
+-   Estimate weights controlling for age (decade), gender, other events
+-   Estimate predictive value of events for subsequent MHi5 \< 54?
+
+<br><br>
+
+## Methods
 
 ``` r
 mhi5 <- read_rds("data/mhi5_by_all_lifeevents.rds")
@@ -51,6 +106,12 @@ mhi5 <- read_rds("data/mhi5_by_all_lifeevents.rds")
 
 ``` r
 unconditional_fit <- function(.df) {
+  
+  # this is the simplest model: zMHi5 ~ event_dummy + mMHi5 + (1|person) + (1|wave)
+  # It includes effects for wave and person, but not age, sex, other events etc.
+  # Variation in mean levels of MHi5 and the event itself are partitioned separately
+  
+  require(lme4)
   
   .df %>%
     group_by(xwaveid) %>%
@@ -79,64 +140,72 @@ fits <- map(mhi5,
 write_rds(fits, "results/lmm_fits.rds")
 ```
 
+## Results
+
+Standardized beta coefficients representing the amount of change in
+MHi-5 scores around each life event are shown below.
+
+##### Figure 1. Time-varying effects of different life events
+
 ``` r
 fits <- read_rds("results/lmm_fits.rds")
 ```
 
-``` r
-map(fits, ~fixef(.) %>% as_tibble(rownames = "coef")) %>%
-  bind_rows(.id = "event") %>%
-  filter(coef != "m") %>%
-  mutate(time = str_remove(coef, "time"),
-         time = fct_relevel(time, "pre36", "pre24", "pre12")) %>% 
-  group_by(event) %>%
-  mutate(worst = min(value),
-         `pre` = value[time == "pre12"],
-         `3mo` = value[time == "post03"],
-         `12mo` = value[time == "post12"]) %>% 
-  ungroup() %>%
-  mutate(event = fct_reorder(event, `3mo`)) %>%
-  ggplot(aes(x = time, y = value)) +
-    geom_line(group = 1) +
-    facet_wrap(~event) +
-    guides(x =  guide_axis(angle = 33)) +
-    labs(subtitle = "Ordered by 3 mo effect", x = "") +
-    theme_minimal()
-```
+![](results/plot_fits-1.png)<!-- --> <br><br>
 
-![](results/plot_fits-1.png)<!-- -->
+The beta coefficients from these models were used to assign weightings
+to each event at different time points: 12 mo prior to the event, 3 mo
+post event, and 12 mo post event.
+
+#### Table 1. Time-varying weights for life events
+
+<img src="results/weight_table_1.png" alt="Table 1" style="height: 800px;"/>
+
+<br>
+
+The impact of events on mental health (MHi-5 scores) varies by event and
+by time. Consequently, the weighting of each event varies. For example,
+death of spouse (`Widowed`) and divorce or separation (`Divorced`) are
+the two worst events at 3 mo afterwards, however by 12 mo afterwards
+`Bankruptcy` is the worst event, with `Widowed` equal second (along with
+serious injury `Injured`) and `Divorced` is equal eighth and not
+significantly different from zero (*p* \> .05).
+
+Some events have a positive effect on mental health (MHi-5 scores) and
+so are given a negative weighting in this scheme. Marriage, childbirth
+and pregnancy all have negative weights up to 12 months before the event
+and three months afterwards. At 12 months after these events, the weight
+is not significantly different from zero (*p* \> .05), highlighting the
+temporary emotional impact of these positive life events (nb. changes to
+life satisfaction scores have longer impacts after these events, but not
+considered here).
 
 <br><br>
 
-#### Table 1. Weights for life events
+## Discussion
 
-``` r
-map(fits, ~tidy(., effects = "fixed", conf.int = T)) %>%
-  bind_rows(.id = "event") %>%
-  filter(term %in% c("timepre12", "timepost03", "timepost12")) %>%
-  transmute(
-    event,
-    term = str_remove(term, "time"),
-    estimate = if_else(0 > conf.low & 0 < conf.high, 
-                       as.character(round(-1*estimate, 2)), 
-                       paste0(round(-1*estimate, 2), "*"))
-  ) %>%
-  spread(term, estimate) %>%
-  mutate(val = parse_number(post03),
-         event = fct_reorder(event, val)) %>%
-  arrange(desc(event)) %>%
-  select(`Life event` = event, pre12, post03, post12) %>%
-  flextable() %>%
-  footnote(
-    i = 1, j = 1,
-    ref_symbols = "",
-    value = as_paragraph("*p < .05")
-  ) %>%
-  autofit() %>%
-  save_as_image(path = "results/weight_table_1.png")
-```
+<br>
 
-<img src="results/weight_table_1.png" alt="Table 1" style="height: 800px;"/>
+##### Limitations
+
+Events are broad and vaguely defined, and so may capture heterogeneity
+in the response (e.g., divorce, vs divorce after a period of marital
+conflict and infidelity) (Dohrenwend, 2006)
+
+<br>
+
+##### Strengths
+
+Problems in defining and sampling the relevant population for stressful
+life events are often present in life events research (see Dohrenwend
+and Dohrenwend, 1974), but are minimised here by probabilistic sampling
+of the Australian population. The relationship between a stressful life
+event and a health outcome can be interpreted as causal when exposure to
+the event occurred for reasons that are random with respect to the
+outcome (Kessler, 1997), which is the case here under HILDA’s
+probabilistic sampling method. However selection bias may still exist if
+some victims are less likely to report an event than others (e.g.,
+homelessness, sexual assault, or severely affected sufferers).
 
 <br><br>
 
@@ -144,11 +213,29 @@ map(fits, ~tidy(., effects = "fixed", conf.int = T)) %>%
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 
+<div id="ref-bahri2019relation" class="csl-entry">
+
+Bahri, N., Fathi Najafi, T., Homaei Shandiz, F., Tohidinik, H.R.,
+Khajavi, A., 2019. The relation between stressful life events and breast
+cancer: A systematic review and meta-analysis of cohort studies. Breast
+cancer research and treatment 176, 53–61.
+
+</div>
+
 <div id="ref-dohrenwend2006inventorying" class="csl-entry">
 
-Dohrenwend, B.P., 2006. Inventorying stressful life events as risk
+Dohrenwend, B.P., 2006. [Inventorying stressful life events as risk
 factors for psychopathology: Toward resolution of the problem of
-intracategory variability. Psychological bulletin 132, 477.
+intracategory
+variability.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1584216/)
+Psychological bulletin 132, 477.
+
+</div>
+
+<div id="ref-dohrenwend1974stressful" class="csl-entry">
+
+Dohrenwend, B.S., Dohrenwend, B.P., 1974. Stressful life events: Their
+nature and effects. John Wiley & Sons.
 
 </div>
 
@@ -163,8 +250,26 @@ checklist](https://www.ncbi.nlm.nih.gov/pubmed/15486169). Assessment 11,
 
 <div id="ref-holmes1967social" class="csl-entry">
 
-Holmes, T.H., Rahe, R.H., 1967. The social readjustment rating scale.
-Journal of psychosomatic research.
+Holmes, T.H., Rahe, R.H., 1967. [The social readjustment rating
+scale](https://www.sciencedirect.com/science/article/abs/pii/0022399967900104).
+Journal of psychosomatic research 11, 213–218.
+
+</div>
+
+<div id="ref-kessler1997effects" class="csl-entry">
+
+Kessler, R.C., 1997. [The effects of stressful life events on
+depression](https://www.annualreviews.org/doi/full/10.1146/annurev.psych.48.1.191).
+Annual review of psychology 48, 191–214.
+
+</div>
+
+<div id="ref-slopen2011sex" class="csl-entry">
+
+Slopen, N., Williams, D.R., Fitzmaurice, G.M., Gilman, S.E., 2011. Sex,
+stressful life events, and adult onset depression and alcohol
+dependence: Are men and women equally vulnerable? Social Science &
+Medicine 73, 615–622.
 
 </div>
 
@@ -174,6 +279,24 @@ Wethington, E., Brown, G.W., Kessler, R.C., 1997. Interview measurement
 of stressful life events, in: Cohen, S., Kessler, R.C., Gordon, L.U.
 (Eds.), Measuring Stress: A Guide for Health and Social Scientists.
 Oxford University Press, Oxford, UK, pp. 59–79.
+
+</div>
+
+<div id="ref-zautra1983life" class="csl-entry">
+
+Zautra, A.J., Reich, J.W., 1983. [Life events and perceptions of life
+quality: Developments in a two-factor
+approach](https://onlinelibrary.wiley.com/doi/abs/10.1002/1520-6629(198304)11:2%3C121::AID-JCOP2290110206%3E3.0.CO;2-V).
+Journal of Community Psychology 11, 121–132.
+
+</div>
+
+<div id="ref-zimmerman1983methodological" class="csl-entry">
+
+Zimmerman, M., 1983. [Methodological issues in the assessment of life
+events: A review of issues and
+research](https://www.sciencedirect.com/science/article/pii/0272735883900193).
+Clinical Psychology Review 3, 339–370.
 
 </div>
 
