@@ -334,12 +334,10 @@ illness <- demographics %>%
   select(xwaveid, wave, ill_next_year) %>%
   ungroup()
 
-modelframe <- left_join(illness, xvars) %>%
+modelframe <- left_join(illness, xvars, by = c("xwaveid", "wave")) %>%
   select(xwaveid, wave, ill_next_year, weighted, unweighted) %>%
   filter(wave != "a")
 ```
-
-    ## Joining, by = c("xwaveid", "wave")
 
 Our modelling strategy was to first estimate the total effect associated
 with the weighted and unweighted scores, and then partition the total
