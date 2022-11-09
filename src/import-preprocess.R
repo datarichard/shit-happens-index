@@ -60,17 +60,17 @@ named_events <- list(
   Injured = "leins",
   Reconciled = "lercl", 
   Fired = "lefrd", 
-  Family_harmed = "leinf",   
+  `Family illness` = "leinf",   
   Robbed = "lepcm",
-  Friend_died = "ledfr",
-  Relative_died = "ledrl",
-  Relative_jailed = "lejlf",
-  Home_lost = "ledhm",
+  `Friend died` = "ledfr",
+  `Relative died` = "ledrl",
+  `Relative jailed` = "lejlf",
+  `Home destroyed` = "ledhm",
   Moved = "lemvd",
   Hired = "lejob",
   Promoted = "leprm",
   Retired = "lertr",
-  Money_gained = "lefni",
+  `Money gained` = "lefni",
   Pregnant = "leprg",
   Childbirth = "lebth",
   Married = "lemar"
@@ -120,6 +120,7 @@ age_and_sex <- gather_hilda(hilda, 'hgage') %>%
   spread(code, val) %>%
   left_join(sex)
 
+#### Store events ####
 # Final flags and join
 map(.x = mhi5_by_events, .f = ~{
   na.omit(.x) %>% # remove missing outcome data
@@ -148,7 +149,53 @@ map(.x = mhi5_by_events, .f = ~{
   ) %>% 
   write_rds("data/mhi5_by_all_lifeevents.rds")
 
+# Gather and store raw events for later use
+events <- gather_hilda(hilda, named_events) %>%
+  mutate_if(is.double, ~ ifelse(. < 0, NA_real_, .)) %>%
+  mutate(val = val - 1) %>%
+  spread(code, val) 
 
+write_rds(events, "data/lifeevents_by_all_years.rds")
 
+#### Store wellbeing & demographics ####
+satisfaction <- gather_hilda(hilda, c('losat', 'losatyh')) %>%
+  mutate_if(is.double, ~ ifelse(. < 0, NA_real_, .)) %>%
+  spread(code, val) 
+
+k10 <- gather_hilda(hilda, c('pdk10rc', 'pdk10s')) %>%
+  mutate_if(is.double, ~ ifelse(. < 0, NA_real_, .)) %>%
+  spread(code, val) 
+
+# Gather and join demographic variables
+sex <- gather_hilda(hilda, 'hgsex') %>%
+  group_by(xwaveid) %>%
+  summarise(sex = round(mean(val))) %>%
+  transmute(
+    xwaveid,
+    female = sex - 1,
+  )
+
+ses <- gather_hilda(hilda, c('hhsad10', 'hhsec10', 'hhsed10')) %>%
+  spread(code, val)
+
+demographics <- gather_hilda(hilda, 'hgage') %>% 
+  spread(code, val) %>%
+  left_join(sex) %>%
+  left_join(ses) %>%
+  left_join(satisfaction) %>%
+  left_join(k10) %>%
+  left_join(mhi5)
+
+write_rds(demographics, "data/demographics_by_mhi5.rds")
+
+# Gather and store sample weights from HILDA. Note we need the weights for the 
+# SCQ since life events are asked in the SCQ. hhwtsc is the population weight 
+# and so sums to population (15M in 2001). hhwtscs is the sample weight and sums
+# to the sample who answered the SCQ (13,058 in 2001)
+#
+gather_hilda(hilda, c("hhwtsc", "hhwtscs")) %>%
+  mutate_if(is.double, ~ ifelse(. < -5, NA_real_, .)) %>%
+  spread(code, val) %>%
+  write_rds("data/hilda_sample_weights.rds")
   
 
