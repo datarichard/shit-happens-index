@@ -11,7 +11,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE,
+knitr::opts_chunk$set(echo = TRUE,
                       fig.path = "results/")
 
 library(tidyverse)
@@ -36,7 +36,7 @@ Stressful life events have been identified as a risk factor for a variety of phy
 
 The original instrument to measure life events was Holmes and Rahe’s Social Readjustment Rating Scale (SRRS) [@holmes1967social], and this included weights to distinguish and quantify the amount of stress associated with each event. The publication of the SRRS led to an enormous amount of research on the relationship between life events and various types of illness onset (typically screening scales of nonspecific psychological distress), with over 1000 papers using the SRRS published in the first decade after its development [@holmes1979development; @kessler1997effects]. It's reputed advance was in adapting the psychophysical procedure of magnitude estimation to quantify the stressfulness of an event [@dohrenwend1974stressful], which was entirely based on the amount of stress anticipated by research volunteers when imagining the event. Subsequent methodological critiques pointed out the limitations of this method [@dohrenwend1974stressful; @zimmerman1983methodological]; and within the set of fairly serious events included in SRRS life event checklists, the use of differential weights does not markedly increase the association between life event scales and measures of distress [@tibubos2021frequency; @zimmerman1983methodological]. Thus it is not clear whether and how operationalization of a differential weight improves the predictive value of life events checklists over and above frequency or the sum of exposure, and this widely appreciated limitation has led to the proliferation of summed checklists [@turner1997checklist].  
 
-However our earlier research on the impact of major life events in affective wellbeing in a large population-based survey of Australian households between 2001 and 2016 clearly showed that different life events have empirically different impacts on affective wellbeing and mental health [@kettlewell2020differential]. Events such as divorce, major financial loss (e.g., bankruptcy) and death of a loved one (spouse or child) had much larger effects on self-reported affective wellbeing 3 to 12 months later than events such as losing employment (e.g., fired), moving home, or even home destroyed in natural disaster. Furthermore, some events had a beneficial impact on affective wellbeing, such as marriage or pregnancy. In general, our results based on reported experience are consistent with methodological studies of the SRRS (and the various checklists based on it)  demonstrating that negative events are much more powerful predictors of mental health outcomes than positive events [@zautra1983life; @thoits1983dimensions]. It is therefore of interest to provide weighted indexes of life events, based on experience rather than (poorly) anticipated consequences, which large population-based datasets such as HILDA can provide.  
+However our earlier research on the impact of major life events in affective wellbeing in a large population-based survey of Australian households between 2001 and 2016 clearly showed that different life events have empirically different impacts on affective wellbeing and mental health [@kettlewell2020differential]. Events such as divorce, major financial loss (e.g., bankruptcy) and death of a loved one (spouse or child) had much larger effects on self-reported affective wellbeing 3 to 12 months later than events such as losing employment (e.g., fired), moving home, or even home destroyed in natural disaster. Furthermore, some events had a beneficial impact on affective wellbeing, such as marriage or pregnancy. In general, our results based on reported experience are consistent with methodological studies of the SRRS (and the various checklists based on it) demonstrating that negative events are much more powerful predictors of mental health outcomes than positive events [@zautra1983life; @thoits1983dimensions]. It is therefore of interest to provide weighted indexes of life events, based on experience rather than (poorly) anticipated consequences, which large population-based datasets such as HILDA can provide.  
 
 <br><br>
 
@@ -56,7 +56,7 @@ We estimate the impact of each life event in a fixed effect regression model of 
 
 
 
-```{r import-preprocess, echo=T}
+```{r import-preprocess}
 events <- read_rds("data/lifeevents_by_all_years.rds")
 # This includes all events, but we may want to select events with MHi5 observations
 # before and after the event (i.e., balanced observations)
@@ -91,58 +91,62 @@ named_events <- list(
 )
 ```
 
-```{r lmm_fits, echo=T, eval=F}
-unconditional_fit <- function(.df) {
+```{r lmm_fits}
+if (!file.exists("results/lmm_fits.rds")) {
   
-  # this is the simplest model: zMHi5 ~ event_dummy + mMHi5 + (1|person) + (1|wave)
-  # It includes effects for wave and person, but not age, sex, other events etc.
-  # Variation in mean levels of MHi5 and the event itself are partitioned separately
+  unconditional_fit <- function(.df) {
+    
+    # this is the simplest model: zMHi5 ~ event_dummy + mMHi5 + (1|person) + (1|wave)
+    # It includes effects for wave and person, but not age, sex, other events etc.
+    # Variation in mean levels of MHi5 and the event itself are partitioned separately
+    
+    require(lme4)
+    
+    .df %>%
+      group_by(xwaveid) %>%
+      mutate(y = c(scale(ghmh))) %>%
+      ungroup() %>%
+      mutate(
+        time = fct_relevel(time, "pre36", "pre24", "pre12"),
+        y = replace_na(y, 0)
+      ) -> df
+    
+    ghmh_m <- select(df, xwaveid, year, ghmh) %>%
+      distinct() %>%
+      group_by(xwaveid) %>%
+      summarise(m = mean(ghmh)) %>%
+      mutate(sm = c(scale(m)))
+    
+    df <- left_join(df, ghmh_m)
+    
+    lmer(y ~ 0 + time + m + (1|xwaveid) + (1|wave), data = df)
+    
+  }
   
-  require(lme4)
+  mhi5_by_events <- read_rds("data/mhi5_by_all_lifeevents.rds")
   
-  .df %>%
-    group_by(xwaveid) %>%
-    mutate(y = c(scale(ghmh))) %>%
-    ungroup() %>%
-    mutate(
-      time = fct_relevel(time, "pre36", "pre24", "pre12"),
-      y = replace_na(y, 0)
-    ) -> df
+  fits <- map(mhi5_by_events, 
+              .f = ~unconditional_fit(.))
   
-  ghmh_m <- select(df, xwaveid, year, ghmh) %>%
-    distinct() %>%
-    group_by(xwaveid) %>%
-    summarise(m = mean(ghmh)) %>%
-    mutate(sm = c(scale(m)))
+  write_rds(fits, "results/lmm_fits.rds")
   
-  df <- left_join(df, ghmh_m)
+} else {
   
-  lmer(y ~ 0 + time + m + (1|xwaveid) + (1|wave), data = df)
-  
+  fits <- read_rds("results/lmm_fits.rds")
+  names(fits) <- names(named_events)
+
 }
-
-mhi5_by_events <- read_rds("data/mhi5_by_all_lifeevents.rds")
-
-fits <- map(mhi5_by_events, 
-            .f = ~unconditional_fit(.))
 ```
-
-```{r echo=F, eval=F}
-write_rds(fits, "results/lmm_fits.rds")
-```
-
 
 ## Results  
 
-```{r read_lmm_fits, echo=F}
-fits <- read_rds("results/lmm_fits.rds")
-names(fits) <- names(named_events)
-```
-
-We present the population-weighted estimates of major life event frequencies (adjusted for age, sex, region-of-State, labour force status, marital status, and household composition) in Australia. For a description of the weight-adjustment, see [Table 4.28 in the HILDA manual](https://melbourneinstitute.unimelb.edu.au/hilda/for-data-users/user-manuals).  
-
+<br>
 
 #### Frequency of major life events  
+
+We present the population-weighted estimates of major life event frequencies in Australia adjusted for age, sex, region-of-State, labour force status, marital status, and household composition. For a description of the weight-adjustment, see [Table 4.28 in the HILDA manual](https://melbourneinstitute.unimelb.edu.au/hilda/for-data-users/user-manuals).  
+
+
 
 ```{r calculate_frequency}
 # Population weighted frequencies
@@ -226,8 +230,9 @@ The most frequent major life event is a illness or injury in a close family memb
 
 <br><br>
 
+#### Effect of life events on mental wellbeing
 
-Coefficients from the fixed effect regression of life events representing the amount of change in MHi-5 scores around each life event are shown below.  
+Standardized coefficients from the fixed effect regression of life events representing the amount of change in MHi-5 scores around each life event are shown below.  
 
 
 ##### Figure 2. Time-varying effects of different life events  
@@ -262,53 +267,65 @@ map(fits, ~fixef(.) %>%
 ```
 <br><br>
 
-The beta coefficients from these models were used to assign weightings to each event at different time points: 12 mo prior to the event, 3 mo post event, and 12 mo post event.  
+The beta coefficients from these models were used to assign weightings to each event at different time points: 12 mo prior to the event, 3 mo post event, and 12 mo post event. The sign of the beta coefficients was reversed (multiplied by -1) to obtain weights which produce higher values for worse events.   
 
 #### Table 1. Time-varying weights for life events  
 
-```{r save_weights, eval=F, echo=F}
+```{r create_weights}
 # Weights are determined from coefficients at each time point. Only significant
 # coefficients are used. 
-map(fits, ~tidy(., effects = "fixed", conf.int = T)) %>%
-  bind_rows(.id = "event") %>%
-  filter(term %in% c("timepre12", "timepost03", "timepost12")) %>%
-  transmute(
-    event,
-    term = str_remove(term, "time"),
-    estimate = if_else(0 > conf.low & 0 < conf.high, 
-                       0, 
-                       round(-1*estimate, 2))
+if (!file.exists("results/shit_happens_weights.rds")) {
+  
+  shit_happens_weights <- map(fits, ~tidy(., effects = "fixed", conf.int = T)) %>%
+    bind_rows(.id = "event") %>%
+    filter(term %in% c("timepre12", "timepost03", "timepost12")) %>%
+    transmute(
+      event,
+      term = str_remove(term, "time"),
+      estimate = if_else(0 > conf.low & 0 < conf.high, 
+                         0, 
+                         round(-1*estimate, 2))
     ) %>%
-  spread(term, estimate) %>%
-  mutate(code = recode(event, !!!named_events)) %>%
-  select(event, code, pre12, post03, post12) %>%
-  write_rds("results/shit_happens_weights.rds")
+    spread(term, estimate) %>%
+    mutate(code = recode(event, !!!named_events)) %>%
+    select(event, code, pre12, post03, post12) %>%
+    write_rds("results/shit_happens_weights.rds")
+} 
+
+# The weights were selected from the largest coefficient (post 3 month event), 
+# and we only used positive weights  
+le_weights <- read_rds("results/shit_happens_weights.rds") %>%
+  select(event, code, weight = post03) %>% # select post03 or post12
+  mutate(weight = if_else(weight < 0, 0, weight))
 ```
 
-```{r table_1, echo=F, eval=F}
-map(fits, ~tidy(., effects = "fixed", conf.int = T)) %>%
-  bind_rows(.id = "event") %>%
-  filter(term %in% c("timepre12", "timepost03", "timepost12")) %>%
-  transmute(
-    event,
-    term = str_remove(term, "time"),
-    estimate = if_else(0 > conf.low & 0 < conf.high, 
-                       as.character(round(-1*estimate, 2)), 
-                       paste0(round(-1*estimate, 2), "*"))
-  ) %>%
-  spread(term, estimate) %>%
-  mutate(val = parse_number(post03),
-         event = fct_reorder(event, val)) %>%
-  arrange(desc(event)) %>%
-  select(`Life event` = event, pre12, post03, post12) %>%
-  flextable() %>%
-  footnote(
-    i = 1, j = 1,
-    ref_symbols = "",
-    value = as_paragraph("*p < .05")
-  ) %>%
-  autofit() %>%
-  save_as_image(path = "results/weight_table_1.png")
+```{r table_1, echo=F}
+if (!file.exists("results/weight_table_1.png")) {
+  
+  map(fits, ~tidy(., effects = "fixed", conf.int = T)) %>%
+    bind_rows(.id = "event") %>%
+    filter(term %in% c("timepre12", "timepost03", "timepost12")) %>%
+    transmute(
+      event,
+      term = str_remove(term, "time"),
+      estimate = if_else(0 > conf.low & 0 < conf.high, 
+                         as.character(round(-1*estimate, 2)), 
+                         paste0(round(-1*estimate, 2), "*"))
+    ) %>%
+    spread(term, estimate) %>%
+    mutate(val = parse_number(post03),
+           event = fct_reorder(event, val)) %>%
+    arrange(desc(event)) %>%
+    select(`Life event` = event, pre12, post03, post12) %>%
+    flextable() %>%
+    footnote(
+      i = 1, j = 1,
+      ref_symbols = "",
+      value = as_paragraph("*p < .05")
+    ) %>%
+    autofit() %>%
+    save_as_image(path = "results/weight_table_1.png")
+}
 ```
 
 <img src="results/weight_table_1.png" alt="Table 1" style="height: 800px;"/>
@@ -319,26 +336,18 @@ The impact of events on mental health (MHi-5 scores) varies by event and by time
 
 Some events have a positive effect on mental health (MHi-5 scores) and so are given a negative weighting in this scheme. Marriage, childbirth and pregnancy all have negative weights up to 12 months before the event and three months afterwards. At 12 months after these events, the weight is not significantly different from zero (*p* > .05), highlighting the temporary emotional impact of these positive life events (nb. changes to life satisfaction scores have longer impacts after these events, but not considered here).  
 
-```{r import_weights}
-# The weights were selected from the largest coefficient (post 3 month event), 
-# and we only used positive weights  
-shi_weights <- read_rds("results/shit_happens_weights.rds") %>%
-  select(event, code, weight = post03) %>% # select post03 or post12
-  mutate(weight = if_else(weight < 0, 0, weight))
-```
-
 <br><br>
 
 ##### Table 2. Bivariate associations with weighted scores  
 ```{r table_2}
 events %>%
   gather("key", "val", lebth:levio) %>%
-  left_join(select(shi_weights, key = code, weight), by = "key") %>% 
-  mutate(shi_weight = val * weight) %>% 
-  filter(!is.na(shi_weight)) %>%
+  left_join(select(le_weights, key = code, weight), by = "key") %>% 
+  mutate(le_weight = val * weight) %>% 
+  filter(!is.na(le_weight)) %>%
   arrange(xwaveid, wave) %>%
   group_by(xwaveid, wave) %>%
-  summarise(weighted = sum(shi_weight),
+  summarise(weighted = sum(le_weight),
             unweighted = sum(val),
             .groups = "drop") %>%
   left_join(
@@ -364,88 +373,123 @@ The Pearson correlation between the weighted and unweighted scores was moderate 
 
 #### Predictive value of weights  
 
-Our second aim was to determine the predictive value of using weighted relative to unweighted scores. We estimated the predictive value of the weighted scores for risk of a MHi-5 score < 64 in the following year [@cuijpers2009screening]. This cut-off was chosen because @batterham2018assessing has shown this is the optimal threshold for identifying individuals with any DSM-V internalising disorder in a community sample.  
+Our second aim was to determine the predictive value of using weighted relative to unweighted scores. We estimated the predictive value of the weighted scores for risk of high or very high psychological distress in the following year [K10 > 21, @kessler2002short; @kessler2003]. While the K10 is not a diagnostic instrument, the probability is high that those who score above the cut-point for very high distress have a common mental disorder [i.e., over 85%, @andrews2001interpreting], and it has good psychometric properties when identifying DSM-V disorders in a communnity sample [AUC 0.877, @batterham2018assessing].   
 
-Importantly, only years prior to the first MHi-5 event < 64 (illness) were included, in order to prevent any influence of the first illness on life events (or the likelihood of reporting life events), or the contemporaneous influence of a third variable on both. For this reason, the estimates we report are not "contemporaneous associations" between life events and illness, but instead the (1-year) lagged effect.  
+Importantly, only years prior to the first illness event were included, in order to prevent any influence of the first illness on life events (or the likelihood of reporting life events), or the contemporaneous influence of a third variable on both. For this reason, the estimates we report are not "contemporaneous associations" between life events and illness, but instead the (1-year) lagged effect.  
+
+Because K10 was only collected in 2007 and then every second year afterwards, we only included predictors from 2006, 2008, 2010, 2012, 2014, 2016 and 2018.  
 
 
-```{r create_modelframe, echo=T}
-xvars <- events %>%
-  gather("key", "val", lebth:levio) %>%
-  left_join(select(shi_weights, key = code, weight), by = "key") %>% 
-  mutate(shi_weight = val * weight) %>% 
-  filter(!is.na(shi_weight)) %>%
-  arrange(xwaveid, wave) %>%
-  group_by(xwaveid, wave) %>%
-  summarise(weighted = sum(shi_weight),
-            unweighted = sum(val),
-            .groups = "drop") 
-
-illness <- demographics %>%
-  select(xwaveid, wave, ghmh) %>% 
-  mutate(ill = ghmh < 64) %>%
-  group_by(xwaveid) %>%
-  mutate(
-    ill_sum = order_by(wave, cumsum(ill)), # count illness events
-    ill_next_year = lead(ill, order_by = wave) # flag years which precede illness
-  ) %>% 
-  filter(ill_sum == 0) %>% # select years prior to first illness
-  select(xwaveid, wave, ill_next_year) %>%
-  ungroup()
-
-modelframe <- left_join(illness, xvars, by = c("xwaveid", "wave")) %>%
-  select(xwaveid, wave, ill_next_year, weighted, unweighted) %>%
-  filter(wave != "a")
+```{r create_illness}
+if (file.exists("results/modelframe.rds")) {
+  
+  modelframe <- read_rds("results/modelframe.rds")
+  
+} else {
+  
+  xvars <- events %>%
+    gather("key", "val", lebth:levio) %>%
+    left_join(select(le_weights, key = code, weight), by = "key") %>% 
+    mutate(le_weight = val * weight) %>% 
+    filter(!is.na(le_weight)) %>%
+    arrange(xwaveid, wave) %>%
+    group_by(xwaveid, wave) %>%
+    summarise(weighted = sum(le_weight),
+              unweighted = sum(val),
+              .groups = "drop") 
+  
+  illness.k10 <- demographics %>%
+    select(xwaveid, wave, pdk10rc) %>% 
+    mutate(ill = pdk10rc %in% 3:4) %>% 
+    group_by(xwaveid) %>%
+    mutate(
+      ill_sum = order_by(wave, cumsum(ill)), # count illness events
+      ill_next_year = lead(ill, order_by = wave) # flag years which precede illness
+    ) %>% 
+    filter(ill_sum == 0) %>% # select years prior to first illness
+    select(xwaveid, wave, ill_next_year) %>%
+    ungroup()
+  
+  modelframe <- left_join(illness.k10, xvars, by = c("xwaveid", "wave")) %>%
+    select(xwaveid, wave, ill_next_year, weighted, unweighted) %>%
+    filter(wave %in% letters[c(6, 8, 10, 12, 14, 16, 18, 20)])
+  
+  write_rds(modelframe, "results/modelframe.rds")
+  
+}
 ```
 
-Our predictive modelling strategy was to first estimate the total effect associated with the weighted and unweighted scores, and then partition the total effect into between-person and within-person effects. The total effect and the between-person effect are important estimates of the predictive value of life events for future mental mental illness across the population, however they are also affected/biased by differences between people, such as gender, age, wealth or stable personality traits (time-invariant features). We are mostly interested in the within-person effect since that tells us whether recent life events can play a role in future mental illness of an individual, after removing any other (stable) differences between people. The within-person estimate is thus more clincally relevant (nb. the within-person estimates may still be subject to other (unmeasured) time-varying confounds).  
+Our predictive modelling strategy was to first estimate the total effect associated with the weighted and unweighted scores, and then partition the total effect into between-person and within-person effects. The total effect and the between-person effect are important estimates of the predictive value of life events for future mental illness across the population, however they are also affected/biased by differences between people, such as gender, age, wealth or stable personality traits (time-invariant features). We are mostly interested in the within-person effect since that tells us whether recent life events can play a role in future mental illness of an individual, after removing any other (stable) differences between people. The within-person estimate is thus more clincally relevant (nb. the within-person estimates may still be subject to other (unmeasured) time-varying confounds).  
 
-As the weights are a time-varying covariate, we used a multi-level model with random intercepts for each person. To partition the total effect, we employed within-person centering (equivalent to a fixed effects model) to distinguish the within- and between-person contribution separately. Thus the within-person estimates represent the strength of the 1-year lagged association between the weights and mental illness, after removing stable between-person differences in the level of the predictor and the outcome [@rohrer2021these; @ligthart2016comparison]. It is unaffected by unobserved time-invariant confounders (an important advantage), but it likewise cannot estimate the effect of time-invariant variables in the context of the model such as gender or other stable demographic features (these can be estimated by a different/separate model if of interest).  
+As the weights are a time-varying covariate, we used a multi-level model with random intercepts for each person. To partition the total effect, we employed within-person centering (equivalent to a fixed effects model) to distinguish the within- and between-person contribution separately. Thus the within-person estimates represent the strength of the 1-year lagged association between the weights and high psychological distress, after removing stable between-person differences in the level of the predictor and the outcome [@rohrer2021these; @ligthart2016comparison]. It is unaffected by unobserved time-invariant confounders (an important advantage), but it likewise cannot estimate the effect of time-invariant variables in the context of the model such as gender or other stable demographic features (these can be estimated by a different/separate model if of interest).  
 
-The weighted and unweighted scores were standardized and included in the same model in order to compare the relative importance of each. The estimated terms as odds ratios (nb. `exponentiate=T`) are shown below:  
+The weighted and unweighted scores were standardized and included in the same model in order to compare the relative importance of each. The estimated terms are expressed as odds ratios (nb. `exponentiate=T`), so an OR > 1 indicates an increased risk of mental illness and an OR < 1 indicates less risk:  
   
 ##### Table 3. Comparing predictive value of weighted and unweighted life events
-```{r table_3, echo=T}
-#### Total effects model ####
-# Scale the weighted and unweighted scores over the whole sample
-df <- modelframe %>%
-  mutate(across(c(weighted, unweighted), ~c(scale(.))),
-         ill_next_year = as.factor(ill_next_year))
+```{r table_3}
+# Fit model (or load if it already exists!)
+if (file.exists("results/ztotalfitall.rds")) {
+  
+  totalfitall <- read_rds("results/ztotalfitall.rds")
+  
+} else {
+  
+  #### Total effects model ####
+  # Scale the weighted and unweighted scores over the whole sample
+  df <- modelframe %>%
+    mutate(across(c(weighted, unweighted), ~c(scale(.))),
+           ill_next_year = as.factor(ill_next_year))
+  
+  totalfitall <- glmer(
+    ill_next_year ~ weighted + unweighted + (1|xwaveid),
+    data = df, 
+    family = binomial)
+  
+  write_rds(totalfitall, "results/ztotalfitall.rds")
+}
 
-totalfitall <- glmer(
-  ill_next_year ~ weighted + unweighted + (1|xwaveid),
-  data = df, 
-  family = binomial)
 
 
-#### Within vs Between model ####
-# Within-person mean centering was performed to remove the influence of any 
-# differences between people on the estimate. 
-df.m <- modelframe %>%
-  group_by(xwaveid) %>%
-  summarise(
-    weighted.between = mean(weighted, na.rm=T),
-    unweighted.between = mean(unweighted, na.rm=T),
-    .groups = "drop"
-  ) %>%
-  mutate(across(c(weighted.between, unweighted.between), ~c(scale(.))))
+# Fit model (or load if it already exists!)
+if (file.exists("results/zpartfitall.rds")) {
+  
+  partfitall <- read_rds("results/zpartfitall.rds")
+  
+} else {
+  
+  #### Within vs Between model ####
+  # Within-person mean centering was performed to remove the influence of any 
+  # differences between people on the estimate. 
+  df.m <- modelframe %>%
+    group_by(xwaveid) %>%
+    summarise(
+      weighted.between = mean(weighted, na.rm=T),
+      unweighted.between = mean(unweighted, na.rm=T),
+      .groups = "drop"
+    ) %>%
+    mutate(across(c(weighted.between, unweighted.between), ~c(scale(.))))
+  
+  df <- modelframe %>%
+    filter(!is.na(ill_next_year)) %>%
+    group_by(xwaveid) %>%
+    mutate(across(c(weighted, unweighted), ~c(scale(.)))) %>%
+    ungroup() %>%
+    replace_na(list(weighted = 0, unweighted = 0)) %>%
+    left_join(df.m, by = "xwaveid") %>%
+    mutate(ill_next_year = as.factor(ill_next_year)) %>%
+    rename(weighted.within = weighted, unweighted.within = unweighted)
+  
+  partfitall <- glmer(
+    ill_next_year ~ weighted.within + weighted.between + 
+      unweighted.within + unweighted.between + (1|xwaveid),
+    data = df, 
+    family = binomial)
+  
+  write_rds(partfitall, "results/zpartfitall.rds")
+}
 
-df <- modelframe %>%
-  filter(!is.na(ill_next_year)) %>%
-  group_by(xwaveid) %>%
-  mutate(across(c(weighted, unweighted), ~c(scale(.)))) %>%
-  ungroup() %>%
-  replace_na(list(weighted = 0, unweighted = 0)) %>%
-  left_join(df.m, by = "xwaveid") %>%
-  mutate(ill_next_year = as.factor(ill_next_year)) %>%
-  rename(weighted.within = weighted, unweighted.within = unweighted)
 
-partfitall <- glmer(
-  ill_next_year ~ weighted.within + weighted.between + 
-    unweighted.within + unweighted.between + (1|xwaveid),
-  data = df, 
-  family = binomial)
-
+# Print table
 bind_rows(
   tidy(totalfitall, effects = "fixed", conf.int=T, exponentiate=T) %>%
     mutate(effect = "Total"),
@@ -453,70 +497,95 @@ bind_rows(
     mutate(effect = "Partitioned")
 ) %>%
   filter(term != "(Intercept)") %>%
-  mutate(across(where(is.double), ~round(., 3)))
+  select(-statistic) %>%
+  select(-p.value, everything()) %>%
+  mutate(across(estimate:conf.high, ~round(., 2))) 
 ```
 
 <br>
 
-The total predictive value of both weighted and unweighted life event scores was positive, the weighted and unweighted estimates had similar total estimates and both predicted a higher likelihood of illness (*&beta;*OR > 1, *p*s < .05). The distribution of plausible total effects in each case (95%CI) overlaps so there is not much evidence to distinguish the importance of one over the other.   
+The total predictive value of the weighted life event scores was positive, while unweighted total estimate was non-significant and negative (i.e., *&beta;* < 1, *p* > .05).   
 
-After partitioning the total predictive value into within- and between-effects, the within-person effect of weighted scores was also positive (*&beta;*OR = 1.1±.027, *p* < .05), and the 95% confidence intervals indicated this was significantly higher than unweighted scores (which were negative; *&beta;*OR = 0.89±.021, *p* < .05). Thus weighted scores are better _positive_ predictors of future mental illness than unweighted scores when considering change within-person.  
+After partitioning the total predictive value into within- and between-effects, the within-person effect of weighted scores was also positive (*&beta;*OR = 1.15±.03, *p* < .05), and the 95% confidence intervals indicated this was significantly higher than unweighted scores (which were negative; *&beta;*OR = 0.91±.02, *p* < .05). Thus weighted scores were better _positive_ predictors of future mental illness than unweighted scores when considering change within-person. These within-person estimates represent the most clinically-relevant effect, here indicating a positive change in a person's life event weighted score was associated with a risk of mental illness.  
 
-The between-person predictive value of unweighted scores was large and positive (*&beta;*OR = 2.04±.07, *p* < .05) - indicating people who on average have a higher score are at more risk of mental illness, however this association may be affected by time-invariant third variables (gender, age, ses, personality traits). The former within-person estimates represent the most clinically-relevant effect, here indicating a positive change in a person's life event weighted score was associated with a future risk of mental illness.   
+The between-person predictive value of weighted and unweighted scores were both positive (*&beta;*OR = 1.27±.04 and 1.44±.04, *ps* < .05) - indicating people who on average have a higher score are at more risk of mental illness, however this association may be affected by time-invariant third variables (gender, age, ses, personality traits).  
 
 <br><Br>
 
 #### Mental illness predictions  
 
-The regression coefficients presented above were standardized to allow comparison of the effect size and precision, however they do not indicate the probability of increased risk. Here we estimate the predicted probability of risk over all values of weighted scores. We estimate the total predicted probability and the within-person predicted probability of a MHi-5 score < 64 in the following year.  
+The regression coefficients presented above were standardized to allow comparison of the effect size and precision, however they do not indicate the probability of increased risk. Here we estimate the predicted probability of risk over all values of weighted scores. We estimate the total predicted probability and the within-person predicted probability of high psychological distress in the following year.  
 
-##### Figure 3. Weighted score predictions  
+##### Figure 3. Predicted mental-illness by weighted scores  
 ```{r figure_3, echo=F, message=F, warning=F}
 library(ggeffects)
 
-df <- modelframe %>%
-  mutate(ill_next_year = as.factor(ill_next_year))
+# Fit model (or load if it already exists!)
+if (file.exists("results/totalfit.rds")) {
+  
+  totalfit <- read_rds("results/totalfit.rds")
+  
+} else {
+  
+  # Unscaled and uncentered predictors
+  df <- modelframe %>%
+    mutate(ill_next_year = as.factor(ill_next_year))
+  
+  totalfit <- glmer(
+    ill_next_year ~ weighted + unweighted + (1|xwaveid),
+    data = df, 
+    family = binomial)
+  
+  write_rds(totalfit, "results/totalfit.rds")
+}
 
-totalfit <- glmer(
-  ill_next_year ~ weighted + unweighted + (1|xwaveid),
-  data = df, 
-  family = binomial)
+
+# Fit model (or load if it already exists!)
+if (file.exists("results/partfit.rds")) {
+  
+  partfit <- read_rds("results/partfit.rds")
+  
+} else {
+  
+  df.m <- modelframe %>%
+    group_by(xwaveid) %>%
+    summarise(
+      weighted.between = mean(weighted, na.rm=T),
+      unweighted.between = mean(unweighted, na.rm=T),
+      .groups = "drop"
+    )
+  
+  # Centered but unscaled predictors
+  df <- modelframe %>%
+    filter(!is.na(ill_next_year)) %>%
+    group_by(xwaveid) %>%
+    mutate(across(c(weighted, unweighted), 
+                  ~c(scale(., center=T, scale=F)))) %>%
+    ungroup() %>%
+    replace_na(list(weighted = 0, unweighted = 0)) %>%
+    left_join(df.m, by = "xwaveid") %>%
+    mutate(ill_next_year = as.factor(ill_next_year)) %>%
+    rename(weighted.within = weighted, unweighted.within = unweighted)
+  
+  partfit <- glmer(
+    ill_next_year ~ weighted.within + weighted.between + (1|xwaveid),
+    data = df, 
+    family = binomial)
+  
+  write_rds(partfit, "results/partfit.rds")
+}
 
 
-df.m <- modelframe %>%
-  group_by(xwaveid) %>%
-  summarise(
-    weighted.between = mean(weighted, na.rm=T),
-    unweighted.between = mean(unweighted, na.rm=T),
-    .groups = "drop"
-  )
-
-df <- modelframe %>%
-  filter(!is.na(ill_next_year)) %>%
-  group_by(xwaveid) %>%
-  mutate(across(c(weighted, unweighted), 
-                ~c(scale(., center=T, scale=F)))) %>%
-  ungroup() %>%
-  replace_na(list(weighted = 0, unweighted = 0)) %>%
-  left_join(df.m, by = "xwaveid") %>%
-  mutate(ill_next_year = as.factor(ill_next_year)) %>%
-  rename(weighted.within = weighted, unweighted.within = unweighted)
-
-partfit <- glmer(
-  ill_next_year ~ weighted.within + weighted.between + 
-    unweighted.within + unweighted.between + (1|xwaveid),
-  data = df, 
-  family = binomial)
-
+# Plot figure
 bind_rows(
   
   ggpredict(totalfit, terms = "weighted") %>% 
-  tibble() %>%
-  mutate(group = "Total effect"),
+    tibble() %>%
+    mutate(group = "Total effect"),
   
   ggpredict(partfit, terms = "weighted.within") %>% 
-  tibble() %>%
-  mutate(group = "Within-effect")
+    tibble() %>%
+    mutate(group = "Within-effect")
   
 ) %>%
   ggplot(aes(x = x, y = predicted)) +
@@ -525,29 +594,32 @@ bind_rows(
     geom_line(aes(group = group)) +
     facet_wrap(~group) +
     labs(
-      subtitle = "Predicted probabilities of MHi-5 < 64 next year",
+      subtitle = "Predicted probabilities of high or very high distress next year",
       y = "", x = "weighted score") +
     theme_minimal() +
     theme(panel.border = element_rect(fill = NA, color = "grey80"))
+
 ```
+
+<br>
+
+The risk of future mental illness (high or very high psychological distress) increased with weighted score. The within-person change had a larger impact on the level risk than the total effect, which reflects the relative importance of life events on individual mental health.  
 
 <br><br>
 
 ## Discussion  
 
-The use of generic weights rather than subjective weights is promoted on the grounds that generic weights are _a priori_ independent from the experience of the event, and so can predict consequences of the stress exposure such as the risk of poor health. Interestingly the rank-ordering of life events assigned by diverse subgroups are often highly correlated (*&rho;* > 0.9), suggesting a shared or generalizable experience of stress, which also supports the use of generic weights. Others have argued the generalizability of any life event scale will be limited to the population on which the weights were developed [@dohrenwend1974stressful; @zimmerman1983methodological]. The HILDA sample on which our weights were developed was selected to be representative of Australia, but we expect the weights would be equally applicable to other developed Western nations.   
+Our study provided frequencies of major life events in Australia for a large sample of the population. Based on the large and representative data set, these results represent reliable data without common selection bias for specific subpopulations, which is necessary for planning and designing public health services.  
 
-<br>
+We also report the predictive associations between weighted and unweighted life events and the 1-year high or very high psychological distress. The use of weights in life event scales has been debated since 1960s. Originally generic weights rather than subjective weights were promoted on the grounds that generic weights are _a priori_ independent from the experience of the event, and so can predict consequences of the stress exposure such as the risk of poor health. Here we are proposing a set of generic weights that are based on the average experience of the event from an independent and representative sample of the population.  
 
-##### Limitations  
+We demonstrate the use of these empirical weights improves the predictive value of a life-event scale for future mental illness, relative to an unweighted scale. Both weighted and unweighted scales improved predictions across individuals, with the unweighted scale have a slight advantage. However the use of weights improved predictions based on change within-person relative to unweighted, which represents the most clinically-relevant prediction context and is not subject to bias from unmeasured differences between people (e.g., gender, age, personality traits).  
 
-Events are broad and vaguely defined, and so may capture heterogeneity in the response (e.g., divorce, vs divorce after a period of marital conflict and infidelity) [@dohrenwend2006inventorying]  
+Interestingly the rank-ordering of life events assigned by diverse subgroups are often highly correlated (*&rho;* > 0.9), suggesting a shared or generalizable experience of stress, which also supports the use of generic weights. Others have argued the generalizability of any life event scale will be limited to the population on which the weights were developed [@dohrenwend1974stressful; @zimmerman1983methodological]. The HILDA sample on which our weights were developed was selected to be representative of Australia, but we expect the weights would be equally applicable to other developed Western nations.   
 
-<br>
+One limitation of using a life event schedule as employed here, is that events are broad and vaguely defined. For instance, there may be important differences in the response to divorce after an amicable seperation versus after marital conflict or infidelity [@dohrenwend2006inventorying]. However estimating the population response to more detailed events is difficult in the currently available datasets, in which the items recording life events are broad and ill-defined for pragmatic reasons.  
 
-##### Strengths  
-
-Problems in defining and sampling the relevant population for stressful life events are often present in life events research [see @dohrenwend1974stressful], but are minimised here by probabilistic sampling of the Australian population in HILDA. Furthermore, the relationship between a stressful life event and a health outcome can be interpreted as causal when exposure to the event occurred for reasons that are random with respect to the outcome [@kessler1997effects], which is the case here under HILDA's probabilistic sampling method. However selection bias may still exist if some victims are less likely to report an event than others (e.g., homelessness, sexual assault, or severely affected sufferers).
+Problems in defining and sampling the relevant population for stressful life events are often present in life events research [see @dohrenwend1974stressful], as post-hoc selection of people who experienced a major life event is likely to result in biased estimates. That is, people who experienced a significant response to the life event are more likely to be selected by such post-hoc methods, even if only because they are more likely to remember the event than someone who was unperturbed. One strength of the present study is the use of probabilistic sampling of the Australian population in HILDA, which avoids any selection bias of the response. Furthermore, the relationship between a stressful life event and a health outcome can be interpreted as causal when exposure to the event occurred for reasons that are random with respect to the outcome [@kessler1997effects], which is the case here under HILDA's probabilistic sampling method. However selection bias may still exist if some victims are less likely to report an event than others (e.g., homelessness, sexual assault, or severely affected sufferers).
 
 <br><br>
 
