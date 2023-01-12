@@ -1,9 +1,9 @@
 ---
-title: "shit happens index"
+title: "Evaluating the added predictive ability of affective experience to life-events"
 output: 
+  
   github_document:
     df_print: kable
-  
 bibliography: src/references.bib
 csl: src/apa-6th-edition.csl
 editor_options: 
@@ -400,7 +400,7 @@ if (file.exists("results/modelframe.rds")) {
   
   illness.k10 <- demographics %>%
     select(xwaveid, wave, pdk10rc) %>% 
-    mutate(ill = pdk10rc %in% 3:4) %>% 
+    mutate(ill = pdk10rc %in% 3:4) %>% # FALSE includes NA
     group_by(xwaveid) %>%
     mutate(
       ill_sum = order_by(wave, cumsum(ill)), # count illness events

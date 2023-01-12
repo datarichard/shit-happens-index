@@ -1,4 +1,5 @@
-shit happens index
+Evaluating the added predictive ability of affective experience to
+life-events
 ================
 
 Estimating coefficients for measuring psychological distress resulting
@@ -35,15 +36,15 @@ cancer, metabolic syndrome, and depression (Bahri, Fathi Najafi, Homaei
 Shandiz, Tohidinik, & Khajavi, 2019; Kessler, 1997; Slopen, Williams,
 Fitzmaurice, & Gilman, 2011). Today, clinicians and epidemiologists
 often assesses the impact of life-events through summed checklists that
-treat events as equal (Dohrenwend, 2006; Gray, Litz, Hsu, & Lombardo,
-2004; Wethington, Brown, & Kessler, 1997). For example, the Life Events
-Checklist (LEC) (Gray et al., 2004) is a checklist of events which are
-associated with the aetiology of PTSD; responders must indicate the
-degree of exposure (e.g., directly experienced vs witnessed vs heard
-about), but the LEC does not distinguish the amount of distress from the
-event itself. A key feature of such checklists is that all life events
-are treated as equivalent, along with the implicit assumption that
-different life events have equivalent impacts on distress.
+treat events as equal (B. P. Dohrenwend, 2006; Gray, Litz, Hsu, &
+Lombardo, 2004; Wethington, Brown, & Kessler, 1997). For example, the
+Life Events Checklist (LEC) (Gray et al., 2004) is a checklist of events
+which are associated with the aetiology of PTSD; responders must
+indicate the degree of exposure (e.g., directly experienced vs witnessed
+vs heard about), but the LEC does not distinguish the amount of distress
+from the event itself. A key feature of such checklists is that all life
+events are treated as equivalent, along with the implicit assumption
+that different life events have equivalent impacts on distress.
 
 The original instrument to measure life events was Holmes and Rahe’s
 Social Readjustment Rating Scale (SRRS) (Holmes & Rahe, 1967), and this
@@ -55,18 +56,19 @@ nonspecific psychological distress), with over 1000 papers using the
 SRRS published in the first decade after its development (Holmes, 1979;
 Kessler, 1997). It’s reputed advance was in adapting the psychophysical
 procedure of magnitude estimation to quantify the stressfulness of an
-event (Dohrenwend & Dohrenwend, 1974), which was entirely based on the
-amount of stress anticipated by research volunteers when imagining the
-event. Subsequent methodological critiques pointed out the limitations
-of this method (Dohrenwend & Dohrenwend, 1974; Zimmerman, 1983); and
-within the set of fairly serious events included in SRRS life event
-checklists, the use of differential weights does not markedly increase
-the association between life event scales and measures of distress
-(Tibubos et al., 2021; Zimmerman, 1983). Thus it is not clear whether
-and how operationalization of a differential weight improves the
-predictive value of life events checklists over and above frequency or
-the sum of exposure, and this widely appreciated limitation has led to
-the proliferation of summed checklists (Turner & Wheaton, 1997).
+event (B. S. Dohrenwend & Dohrenwend, 1974), which was entirely based on
+the amount of stress anticipated by research volunteers when imagining
+the event. Subsequent methodological critiques pointed out the
+limitations of this method (B. S. Dohrenwend & Dohrenwend, 1974;
+Zimmerman, 1983); and within the set of fairly serious events included
+in SRRS life event checklists, the use of differential weights does not
+markedly increase the association between life event scales and measures
+of distress (Tibubos et al., 2021; Zimmerman, 1983). Thus it is not
+clear whether and how operationalization of a differential weight
+improves the predictive value of life events checklists over and above
+frequency or the sum of exposure, and this widely appreciated limitation
+has led to the proliferation of summed checklists (Turner & Wheaton,
+1997).
 
 However our earlier research on the impact of major life events in
 affective wellbeing in a large population-based survey of Australian
@@ -344,13 +346,9 @@ events %>%
   mutate(across(everything(), ~round(., 3)))
 ```
 
-<div class="kable-table">
-
-| unweighted |   MHi-5 | K10 risk category | K10 score |  Health | Life-satisfaction |
-| ---------: | ------: | ----------------: | --------: | ------: | ----------------: |
-|      0.661 | \-0.221 |             0.164 |     0.174 | \-0.195 |           \-0.185 |
-
-</div>
+| unweighted |  MHi-5 | K10 risk category | K10 score | Health | Life-satisfaction |
+|-----------:|-------:|------------------:|----------:|-------:|------------------:|
+|      0.661 | -0.221 |             0.164 |     0.174 | -0.195 |            -0.185 |
 
 <br>
 
@@ -408,7 +406,7 @@ if (file.exists("results/modelframe.rds")) {
   
   illness.k10 <- demographics %>%
     select(xwaveid, wave, pdk10rc) %>% 
-    mutate(ill = pdk10rc %in% 3:4) %>% 
+    mutate(ill = pdk10rc %in% 3:4) %>% # FALSE includes NA
     group_by(xwaveid) %>%
     mutate(
       ill_sum = order_by(wave, cumsum(ill)), # count illness events
@@ -539,18 +537,14 @@ bind_rows(
   mutate(across(estimate:conf.high, ~round(., 2))) 
 ```
 
-<div class="kable-table">
-
 | effect      | term               | estimate | std.error | conf.low | conf.high |   p.value |
-| :---------- | :----------------- | -------: | --------: | -------: | --------: | --------: |
+|:------------|:-------------------|---------:|----------:|---------:|----------:|----------:|
 | Total       | weighted           |     1.34 |      0.04 |     1.26 |      1.42 | 0.0000000 |
 | Total       | unweighted         |     0.93 |      0.03 |     0.87 |      0.99 | 0.0251346 |
 | Partitioned | weighted.within    |     1.15 |      0.03 |     1.09 |      1.21 | 0.0000005 |
 | Partitioned | weighted.between   |     1.27 |      0.04 |     1.20 |      1.34 | 0.0000000 |
 | Partitioned | unweighted.within  |     0.91 |      0.02 |     0.86 |      0.95 | 0.0001648 |
 | Partitioned | unweighted.between |     1.44 |      0.04 |     1.36 |      1.52 | 0.0000000 |
-
-</div>
 
 <br>
 
@@ -632,27 +626,27 @@ subgroups are often highly correlated (*ρ* \> 0.9), suggesting a shared
 or generalizable experience of stress, which also supports the use of
 generic weights. Others have argued the generalizability of any life
 event scale will be limited to the population on which the weights were
-developed (Dohrenwend & Dohrenwend, 1974; Zimmerman, 1983). The HILDA
-sample on which our weights were developed was selected to be
+developed (B. S. Dohrenwend & Dohrenwend, 1974; Zimmerman, 1983). The
+HILDA sample on which our weights were developed was selected to be
 representative of Australia, but we expect the weights would be equally
 applicable to other developed Western nations.
 
 One limitation of using a life event schedule as employed here, is that
 events are broad and vaguely defined. For instance, there may be
 important differences in the response to divorce after an amicable
-seperation versus after marital conflict or infidelity (Dohrenwend,
-2006). However estimating the population response to more detailed
-events is difficult in the currently available datasets, in which the
-items recording life events are broad and ill-defined for pragmatic
-reasons.
+seperation versus after marital conflict or infidelity (B. P.
+Dohrenwend, 2006). However estimating the population response to more
+detailed events is difficult in the currently available datasets, in
+which the items recording life events are broad and ill-defined for
+pragmatic reasons.
 
 Problems in defining and sampling the relevant population for stressful
-life events are often present in life events research (see Dohrenwend &
-Dohrenwend, 1974), as post-hoc selection of people who experienced a
-major life event is likely to result in biased estimates. That is,
-people who experienced a significant response to the life event are more
-likely to be selected by such post-hoc methods, even if only because
-they are more likely to remember the event than someone who was
+life events are often present in life events research (see B. S.
+Dohrenwend & Dohrenwend, 1974), as post-hoc selection of people who
+experienced a major life event is likely to result in biased estimates.
+That is, people who experienced a significant response to the life event
+are more likely to be selected by such post-hoc methods, even if only
+because they are more likely to remember the event than someone who was
 unperturbed. One strength of the present study is the use of
 probabilistic sampling of the Australian population in HILDA, which
 avoids any selection bias of the response. Furthermore, the relationship
@@ -668,18 +662,19 @@ sufferers).
 
 ## References
 
-<div id="refs" class="references">
+<div id="refs" class="references csl-bib-body hanging-indent"
+line-spacing="2">
 
-<div id="ref-andrews2001interpreting">
+<div id="ref-andrews2001interpreting" class="csl-entry">
 
 Andrews, G., & Slade, T. (2001). Interpreting scores on the Kessler
-psychological distress scale (k10). *Australian and New Zealand Journal
+psychological distress scale (K10). *Australian and New Zealand Journal
 of Public Health*, *25*(6), 494–497.
 <https://doi.org/10.1111/j.1467-842X.2001.tb00310.x>
 
 </div>
 
-<div id="ref-bahri2019relation">
+<div id="ref-bahri2019relation" class="csl-entry">
 
 Bahri, N., Fathi Najafi, T., Homaei Shandiz, F., Tohidinik, H. R., &
 Khajavi, A. (2019). The relation between stressful life events and
@@ -689,7 +684,7 @@ breast cancer: A systematic review and meta-analysis of cohort studies.
 
 </div>
 
-<div id="ref-batterham2018assessing">
+<div id="ref-batterham2018assessing" class="csl-entry">
 
 Batterham, P., Sunderland, M., Slade, T., Calear, A., & Carragher, N.
 (2018). Assessing distress in the community: Psychometric properties and
@@ -699,7 +694,7 @@ crosswalk comparison of eight measures of psychological distress.
 
 </div>
 
-<div id="ref-dohrenwend2006inventorying">
+<div id="ref-dohrenwend2006inventorying" class="csl-entry">
 
 Dohrenwend, B. P. (2006). Inventorying stressful life events as risk
 factors for psychopathology: Toward resolution of the problem of
@@ -708,14 +703,14 @@ intracategory variability. *Psychological Bulletin*, *132*(3), 477.
 
 </div>
 
-<div id="ref-dohrenwend1974stressful">
+<div id="ref-dohrenwend1974stressful" class="csl-entry">
 
 Dohrenwend, B. S., & Dohrenwend, B. P. (1974). *Stressful life events:
 Their nature and effects.* John Wiley & Sons.
 
 </div>
 
-<div id="ref-gray2004psychometric">
+<div id="ref-gray2004psychometric" class="csl-entry">
 
 Gray, M. J., Litz, B. T., Hsu, J. L., & Lombardo, T. W. (2004).
 Psychometric properties of the life events checklist. *Assessment*,
@@ -723,14 +718,14 @@ Psychometric properties of the life events checklist. *Assessment*,
 
 </div>
 
-<div id="ref-holmes1979development">
+<div id="ref-holmes1979development" class="csl-entry">
 
 Holmes, T. H. (1979). Development and application of a quantitative
 measure of life change magnitude. *Stress and Mental Disorder*, 37–53.
 
 </div>
 
-<div id="ref-holmes1967social">
+<div id="ref-holmes1967social" class="csl-entry">
 
 Holmes, T. H., & Rahe, R. H. (1967). The social readjustment rating
 scale. *Journal of Psychosomatic Research*, *11*(2), 213–218.
@@ -738,7 +733,7 @@ scale. *Journal of Psychosomatic Research*, *11*(2), 213–218.
 
 </div>
 
-<div id="ref-kessler1997effects">
+<div id="ref-kessler1997effects" class="csl-entry">
 
 Kessler, R. C. (1997). The effects of stressful life events on
 depression. *Annual Review of Psychology*, *48*(1), 191–214.
@@ -746,7 +741,7 @@ depression. *Annual Review of Psychology*, *48*(1), 191–214.
 
 </div>
 
-<div id="ref-kessler2002short">
+<div id="ref-kessler2002short" class="csl-entry">
 
 Kessler, R. C., Andrews, G., Colpe, L. J., Hiripi, E., Mroczek, D. K.,
 Normand, S.-L., … Zaslavsky, A. M. (2002). Short screening scales to
@@ -756,7 +751,7 @@ distress. *Psychological Medicine*, *32*(6), 959–976.
 
 </div>
 
-<div id="ref-kessler2003">
+<div id="ref-kessler2003" class="csl-entry">
 
 Kessler, R. C., Barker, P. R., Colpe, L. J., Epstein, J. F., Gfroerer,
 J. C., Hiripi, E., … others. (2003). Screening for serious mental
@@ -765,7 +760,7 @@ illness in the general population. *Archives of General Psychiatry*,
 
 </div>
 
-<div id="ref-kettlewell2020differential">
+<div id="ref-kettlewell2020differential" class="csl-entry">
 
 Kettlewell, N., Morris, R. W., Ho, N., Cobb-Clark, D. A., Cripps, S., &
 Glozier, N. (2020). The differential impact of major life events on
@@ -774,7 +769,7 @@ cognitive and affective wellbeing. *SSM-Population Health*, *10*,
 
 </div>
 
-<div id="ref-ligthart2016comparison">
+<div id="ref-ligthart2016comparison" class="csl-entry">
 
 Ligthart-Smith, A. (2016). *A comparison of linear mixed models that
 include time-varying covariates*. Retrieved from
@@ -782,7 +777,7 @@ include time-varying covariates*. Retrieved from
 
 </div>
 
-<div id="ref-rohrer2021these">
+<div id="ref-rohrer2021these" class="csl-entry">
 
 Rohrer, J. M., & Murayama, K. (2021). *These are not the effects you are
 looking for: Causality and the within-/between-person distinction in
@@ -791,7 +786,7 @@ longitudinal data analysis*. Retrieved from
 
 </div>
 
-<div id="ref-slopen2011sex">
+<div id="ref-slopen2011sex" class="csl-entry">
 
 Slopen, N., Williams, D. R., Fitzmaurice, G. M., & Gilman, S. E. (2011).
 Sex, stressful life events, and adult onset depression and alcohol
@@ -801,7 +796,7 @@ Medicine*, *73*(4), 615–622.
 
 </div>
 
-<div id="ref-thoits1983dimensions">
+<div id="ref-thoits1983dimensions" class="csl-entry">
 
 Thoits, P. A. (1983). Dimensions of life events that influence
 psychological distress: An evaluation and synthesis of the literature.
@@ -809,7 +804,7 @@ psychological distress: An evaluation and synthesis of the literature.
 
 </div>
 
-<div id="ref-tibubos2021frequency">
+<div id="ref-tibubos2021frequency" class="csl-entry">
 
 Tibubos, A. N., Burghardt, J., Klein, E. M., Brähler, E., Jünger, C.,
 Michal, M., … others. (2021). Frequency of stressful life events and
@@ -819,14 +814,14 @@ general population. *Journal of Public Health*, *29*(5), 1071–1080.
 
 </div>
 
-<div id="ref-turner1997checklist">
+<div id="ref-turner1997checklist" class="csl-entry">
 
 Turner, R. J., & Wheaton, B. (1997). Checklist measurement. *Measuring
 Stress: A Guide for Health and Social Scientists*, 29.
 
 </div>
 
-<div id="ref-wethington1995interview">
+<div id="ref-wethington1995interview" class="csl-entry">
 
 Wethington, E., Brown, G. W., & Kessler, R. C. (1997). Interview
 measurement of stressful life events. In S. Cohen, R. C. Kessler, & L.
@@ -835,7 +830,7 @@ scientists* (pp. 59–79). Oxford, UK: Oxford University Press.
 
 </div>
 
-<div id="ref-zautra1983life">
+<div id="ref-zautra1983life" class="csl-entry">
 
 Zautra, A. J., & Reich, J. W. (1983). Life events and perceptions of
 life quality: Developments in a two-factor approach. *Journal of
@@ -844,7 +839,7 @@ Community Psychology*, *11*(2), 121–132.
 
 </div>
 
-<div id="ref-zimmerman1983methodological">
+<div id="ref-zimmerman1983methodological" class="csl-entry">
 
 Zimmerman, M. (1983). Methodological issues in the assessment of life
 events: A review of issues and research. *Clinical Psychology Review*,
