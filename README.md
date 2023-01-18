@@ -1,13 +1,9 @@
-Evaluating the added predictive ability of affective experience to
-life-events
+Evaluating the predictive value of affective weights to life-events
 ================
 
-Estimating coefficients for measuring psychological distress resulting
-from various life events
+Extension and validation of stressful life events schedule
 
 <br>
-
-## Extension and validation of stressful life events schedule
 
 Instruments for measuring the severity of psychological distress
 resulting from recent life experiences were originally developed in the
@@ -19,14 +15,17 @@ asking research volunteers to anticipate the severity of stress that was
 expected from its occurrence. However people are notoriously poor at
 anticipating their emotional reaction to abstract events, and large
 population-based surveys can now provide data which tracks self-reported
-distress levels after survey respondants have experienced the life
-event. This provides an opportunity to calculate weights based on
-experienced distress levels rather than anticipated distress, and so can
-provide a way to base clinical predictions on empirical evidence. Our
-other work (Kettlewell et al., 2020) has determined the causal effect of
-major life events on clinically-relevant distress measures in large
-population-based survey data, and results from this project will update
-current clinical instruments to improve care in Australia and elsewhere.
+affective responses and distress levels after survey respondants have
+experienced the life event. This provides an opportunity to calculate
+weights based on the experienced affect rather than anticipated
+feelings, and so can provide a way to base predictions on empirical
+evidence. Our other work (Kettlewell et al., 2020) has determined the
+causal effect of major life events on affective wellbeing (mental
+health), and so the present report evaluates and compares the predictive
+value of a weighted life-events scale against an unweighted summed
+score.
+
+<br>
 
 #### Background
 
@@ -34,17 +33,17 @@ Stressful life events have been identified as a risk factor for a
 variety of physical and mental illnesses such as cardiovascular disease,
 cancer, metabolic syndrome, and depression (Bahri, Fathi Najafi, Homaei
 Shandiz, Tohidinik, & Khajavi, 2019; Kessler, 1997; Slopen, Williams,
-Fitzmaurice, & Gilman, 2011). Today, clinicians and epidemiologists
-often assesses the impact of life-events through summed checklists that
-treat events as equal (B. P. Dohrenwend, 2006; Gray, Litz, Hsu, &
-Lombardo, 2004; Wethington, Brown, & Kessler, 1997). For example, the
-Life Events Checklist (LEC) (Gray et al., 2004) is a checklist of events
-which are associated with the aetiology of PTSD; responders must
-indicate the degree of exposure (e.g., directly experienced vs witnessed
-vs heard about), but the LEC does not distinguish the amount of distress
-from the event itself. A key feature of such checklists is that all life
-events are treated as equivalent, along with the implicit assumption
-that different life events have equivalent impacts on distress.
+Fitzmaurice, & Gilman, 2011). Today, clinicians and researchers often
+assesses the impact of life-events through summed checklists that treat
+events as equal (B. P. Dohrenwend, 2006; Gray, Litz, Hsu, & Lombardo,
+2004; Wethington, Brown, & Kessler, 1997). For example, the Life Events
+Checklist (LEC) (Gray et al., 2004) is a checklist of events which are
+associated with the aetiology of PTSD; responders must indicate the
+degree of exposure (e.g., directly experienced vs witnessed vs heard
+about), but the LEC does not distinguish the amount of distress from the
+event itself. A key feature of such checklists is that all life events
+are treated as equivalent, along with the implicit assumption that
+different life events have equivalent impacts on distress.
 
 The original instrument to measure life events was Holmes and Rahe’s
 Social Readjustment Rating Scale (SRRS) (Holmes & Rahe, 1967), and this
@@ -68,528 +67,362 @@ clear whether and how operationalization of a differential weight
 improves the predictive value of life events checklists over and above
 frequency or the sum of exposure, and this widely appreciated limitation
 has led to the proliferation of summed checklists (Turner & Wheaton,
-1997).
+1997; but see T. Brugha, Bebbington, Tennant, & Hurry, 1985).
 
-However our earlier research on the impact of major life events in
-affective wellbeing in a large population-based survey of Australian
-households between 2001 and 2016 clearly showed that different life
-events have empirically different impacts on affective wellbeing and
-mental health (Kettlewell et al., 2020). Events such as divorce, major
-financial loss (e.g., bankruptcy) and death of a loved one (spouse or
-child) had much larger effects on self-reported affective wellbeing 3 to
-12 months later than events such as losing employment (e.g., fired),
-moving home, or even home destroyed in natural disaster. Furthermore,
-some events had a beneficial impact on affective wellbeing, such as
-marriage or pregnancy. In general, our results based on reported
-experience are consistent with methodological studies of the SRRS (and
-the various checklists based on it) demonstrating that negative events
-are much more powerful predictors of mental health outcomes than
-positive events (Thoits, 1983; Zautra & Reich, 1983). It is therefore of
-interest to provide weighted indexes of life events, based on experience
-rather than (poorly) anticipated consequences, which large
-population-based datasets such as HILDA can provide.
+*(from Coyne & Downey, 1991. Ann. Rev. Psychology)*  
+Whereas both minor and major life events are related to increases in
+depressive symptoms, it appears that only serious life events requiring
+long-term adjustment predict subsequent clinical depression (Brown &
+Harris 1978). Thus, if one is interested in predicting depressive
+symptoms, stronger correlations are obtained with a broad sampling of
+major and minor events, and current life-event inventories seem to have
+adopted a philosophy of “more is better.” Yet only about a dozen items
+on a typical inventory are consistently related to clinical depression
+(Dohrenwend et al 1986), and broader samplings of events produce an
+underestimate of the strong association found with the dirty dozen.
+Brugha et al (1985) found that 12 of 67 categories of life events
+accounted for 77% of the events with etiological significance and that
+these events alone entailed greater relative risk for depression than
+the full list.
 
-<br><br>
-
-#### Aims
-
-We aimed to provide clinicians and researchers with a better tool to
-measure the impact of life events on mental health and the risk of
-mental illness. First we provide the frequency of life events adjusted
-for the Australian population to allow comparison with historical and
-international estimates. Second we estimate the impact of each type of
-life event on affective wellbeing from survey responses of people who
-actually experienced the event. The impact is converted to a weight for
-a life event checklist, from which a weighted or unweighted (summed)
-score can be determined for each person. Finally we test the predictive
-value of weighted and unweighted scores for future mental illness, since
+Our earlier research on the impact of major life events in affective
+wellbeing in a large population-based survey of Australian households
+between 2001 and 2016 clearly showed that different life events have
+empirically different impacts on affective wellbeing and mental health
+(Kettlewell et al., 2020). Events such as divorce, major financial loss
+(e.g., bankruptcy) and death of a loved one (spouse or child) had much
+larger effects on self-reported affective wellbeing 3 to 12 months later
+than events such as losing employment (e.g., fired), moving home, or
+even home destroyed in natural disaster, consistent with T. Brugha et
+al. (1985) and T. S. Brugha & Cragg (1990). Furthermore, some events had
+a beneficial impact on affective wellbeing, such as marriage or
+pregnancy. In general, our results based on reported experience are
+consistent with methodological studies of the SRRS (and the various
+checklists based on it) demonstrating that negative events are much more
+powerful predictors of mental health outcomes than positive events
+(Thoits, 1983; Zautra & Reich, 1983). It is therefore valuable to
+clinicians and researchers to provide a weighted index of life events,
+based on experience rather than (poorly) anticipated consequences, since
 highly stressful events are assumed to be a cause or risk factor for
 mental illness such as depression and anxiety.
 
 <br><br>
 
+#### Aims
+
+Our primary aim was to compare the predictive value of using weighted
+life events relative to unweighted summed scores. We estimated the
+predictive value of the weighted and unweighted scores for risk of
+mental illness within the 12-months after the event. Risk of mental
+illness was defined by low mental health (MHi-5 \< 64) or high
+psychological distress \[K10 \> 21\]. While neither is a diagnostic
+instrument, the probability is high that those who score beyond the
+cut-point have a common mental disorder (i.e., over 85%, Andrews &
+Slade, 2001; Hoeymans, Garssen, Westert, & Verhaak, 2004), and they have
+good psychometric properties when identifying DSM disorders in a
+community sample (AUC 0.877, Batterham, Sunderland, Slade, Calear, &
+Carragher, 2018; Rumpf, Meyer, Hapke, & John, 2001).
+
+The weights were the coefficients of risk estimated by logistic
+regression from a (random) split-sample of respondents in the HILDA
+survey over the entire sample (from 2001 to 2020) (*N* = 10,030). Each
+regression included all life-events and wave controls, and so the
+weights represent the *unique* risk (log odds) of each life event.
+Predictive performance was assessed by measures of calibration and
+discrimination, according to TRIPOD guidelines (Collins, Reitsma,
+Altman, & Moons, 2015; Moons et al., 2015).
+
+In addition, we conducted linear regressions and report the amount of
+(linear) change in the underlying scales (K10 and MHi-5) predicted by
+each life event at different quartiles of the response, as a way of
+showing how risk of mental illness may vary as a function of baseline
+mental health.
+
+<br><br>
+
 ## Methods
 
-We select all major life events in the HILDA 2020 dataset, which
-encompasses the two decade period from 2001 to 2020. HILDA includes
-comprehensive measures of subjective wellbeing, such as the SF-36 from
-which the MHi-5 score, a measure of mental health, can be calculated.
+<br>
 
-The MHi-5 comprises of five items dealing with … etc.
+#### Life events
 
-We estimate the impact of each life event in a fixed effect regression
-model of events on mental health (MHi-5 score). Temporal proximity to
-the event were entered as dummy variables (pre 36 months, pre 24 months,
-pre 12 months, post 3 months, post 6 months, post 9 months, post 12
-months, post 24 months, post 36 months), along with varying effects of
-survey wave and person. This is the simplest model, equivalent to the
-“unconditional” model tested in Kettlewell et al. (2020), without
-controls for other events.
+We select all 22 major life events in the HILDA dataset, which
+encompasses the two decade period from 2001 to 2020.
 
-``` r
-events <- read_rds("data/lifeevents_by_all_years.rds")
-# This includes all events, but we may want to select events with MHi5 observations
-# before and after the event (i.e., balanced observations)
+To describe the frequencies and probabilities of mental illness and life
+events in the sample, we first calculated the probability of mental
+illness risk after each life event for each year. These probabilities
+are the
+![P(illness \| Life event)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;P%28illness%20%7C%20Life%20event%29 "P(illness | Life event)"),
+and so are not adjusted for any other life-events. That is, they
+represent the *total* (unconditional?) mental health risk of each
+life-event in each year. However the HILDA population-weights were
+applied in the calculation, so they are the population-weighted
+probability in the HILDA sample.
 
-demographics <- read_rds("data/demographics_by_mhi5.rds")
-weights <- read_rds("data/hilda_sample_weights.rds")
-# Population weights from HILDA for frequency of events in Australia
+<br>
 
-named_events <- list(
-  Widowed = "ledsc",    
-  Divorced = "lesep",
-  Bankruptcy = "lefnw",
-  Jailed = "lejls",
-  Attacked = "levio",
-  Injured = "leins",
-  Reconciled = "lercl", 
-  Fired = "lefrd", 
-  `Family illness` = "leinf",   
-  Robbed = "lepcm",
-  `Friend died` = "ledfr",
-  `Relative died` = "ledrl",
-  `Relative jailed` = "lejlf",
-  `Home destroyed` = "ledhm",
-  Moved = "lemvd",
-  Hired = "lejob",
-  Promoted = "leprm",
-  Retired = "lertr",
-  `Money gained` = "lefni",
-  Pregnant = "leprg",
-  Childbirth = "lebth",
-  Married = "lemar"
-)
-```
+#### Mental health
 
-``` r
-if (!file.exists("results/lmm_fits.rds")) {
-  
-  unconditional_fit <- function(.df) {
-    
-    # this is the simplest model: zMHi5 ~ event_dummy + mMHi5 + (1|person) + (1|wave)
-    # It includes effects for wave and person, but not age, sex, other events etc.
-    # Variation in mean levels of MHi5 and the event itself are partitioned separately
-    
-    require(lme4)
-    
-    .df %>%
-      group_by(xwaveid) %>%
-      mutate(y = c(scale(ghmh))) %>%
-      ungroup() %>%
-      mutate(
-        time = fct_relevel(time, "pre36", "pre24", "pre12"),
-        y = replace_na(y, 0)
-      ) -> df
-    
-    ghmh_m <- select(df, xwaveid, year, ghmh) %>%
-      distinct() %>%
-      group_by(xwaveid) %>%
-      summarise(m = mean(ghmh)) %>%
-      mutate(sm = c(scale(m)))
-    
-    df <- left_join(df, ghmh_m)
-    
-    lmer(y ~ 0 + time + m + (1|xwaveid) + (1|wave), data = df)
-    
-  }
-  
-  mhi5_by_events <- read_rds("data/mhi5_by_all_lifeevents.rds")
-  
-  fits <- map(mhi5_by_events, 
-              .f = ~unconditional_fit(.))
-  
-  write_rds(fits, "results/lmm_fits.rds")
-  
-} else {
-  
-  fits <- read_rds("results/lmm_fits.rds")
-  names(fits) <- names(named_events)
+HILDA includes comprehensive measures of mental health, such as the
+SF-36 from which the MHi-5 score, a measure of mental health, can be
+calculated (McHorney, Ware Jr, Lu, & Sherbourne, 1994; McHorney, Ware
+Jr, & Raczek, 1993; Ware Jr, 2000; Ware Jr & Sherbourne, 1992), as well
+as the K10, a measure of psychological distress (Kessler et al., 2002,
+2003).
 
-}
-```
+The MHi-5 comprises of five items dealing with … etc .
+
+The K10 comprises of ten items dealing with … etc .
+
+The presence or absence of mental illness risk was defined by a K10
+score \> 21 or a MHi-5 score \< 64 (Batterham et al., 2018). While
+neither is a diagnostic instrument, the probability is high that those
+who score above the K10 cut-point for very high distress have a common
+mental disorder (i.e., over 85%, Andrews & Slade, 2001), and both have
+good psychometric properties when identifying DSM-V disorders in a
+community sample (K10 AUC 0.877 and MHi-5 AUC 0.847, Batterham et al.,
+2018).
+
+HILDA includes repeated measurements of people in the same household,
+however the people in each household may vary from year to year. Each
+person is an independent measurement, however our units of observation
+were person-years. There were *n* = 199,111 person-years (from *n* =
+24,302 people) in the MHi-5 data between 2001 to 2020. There were *n* =
+75,450 person-years (from *n* = 20,060 people) in the K10 data between
+2011 to 2020.
+
+<br>
+
+#### Model development and evaluation
+
+We developed the weights for each life event using a logistic regression
+of mental illness risk (presence or absence) on the complete set of life
+events (plus yearly controls). Each regression was conducted in a
+cross-validated design using hold-out sampling, which randomly split the
+set of people in each data set into independent training and test sets.
+The random split was carried out 10 times to establish the stability of
+the resulting weights, and we report the median and range of weights
+from the ten splits.
+
+Model evaluation was performed by calculating discimrination and
+calibration metrics for the ten independent random splits. Model
+performance was summarised by the median and range of the resulting
+metric scores for each split.
+
+<br><br>
 
 ## Results
 
-<br>
+(demographic tables to be added later if neccesary)
 
-#### Frequency of major life events
+<br><br>
 
-We present the population-weighted estimates of major life event
-frequencies in Australia adjusted for age, sex, region-of-State, labour
-force status, marital status, and household composition. For a
-description of the weight-adjustment, see [Table 4.28 in the HILDA
+#### Unconditional risk probability of each life-event
+
+We present the population-weighted estimates of the probability of
+mental illness risk given each major life event, adjusted for the
+Australian population. The population weights provided in HILDA are
+adjusted for age, sex, region-of-State, labour force status, marital
+status, and household composition for each person and year in Australia
+according to census data. For a description of the weight-adjustment,
+see [Table 4.28 in the HILDA
 manual](https://melbourneinstitute.unimelb.edu.au/hilda/for-data-users/user-manuals).
 
-``` r
-# Population weighted frequencies
-frequencies <- events %>%
-  left_join(select(weights, -hhwtsc), by = c("xwaveid", "wave")) %>%
-  mutate(across(lebth:levio, ~ . * hhwtscs)) %>%
-  select(-hhwtscs) %>%
-  group_by(wave) %>%
-  summarise(across(where(is.numeric), mean, na.rm=T)) 
-```
+##### Table 1a. Probability of mental illness risk (K10 \> 21)
 
-##### Figure 1. Frequency of each major life event in Australia between 2001-2020
+<img src="results/Probability_table_1a.png" alt="Table 1a" style="height: 600px;"/>
+
+<br>
+
+##### Table 1b. Probability of mental illness risk (MHi-5 \< 64)
+
+<img src="results/Probability_table_1b.png" alt="Table 1a" style="height: 400px;"/>
+
+<br><br>
+
+#### Conditional risk weights for each life-event
+
+Each logistic regression of mental illness risk on life events included
+all life events as well as yearly controls, so the coefficients
+represent the *unique* (conditional?) effect of each life event on the
+log odds of risk.
+
+##### Figure 1. Cross-validated weights of mental illness risk for life-events
 
 ![](results/figure_1-1.png)<!-- -->
 
-<br>
-
-The most frequent major life event is a illness or injury in a close
-family member (Family illness) or moving home (Moved) for approximately
-15 percent of Australians in any one-year period, while the least
-frequent is being detained in jail (Jailed) for less than 1 percent. The
-frequency of some events appear to have declined in the last two
-decades, including family illness (or injury), moving home (Moved), and
-starting a new job (Hired). There are no apparent increasing trends in
-the frequency of any event. It is unclear whether these temporal trends
-reflect real change in the Australian population or changes in the
-survey sample as the respondents age over time.
+*Figure 1 legend: The median and range of the conditional weights from
+the ten training models predicting either K10 \> 21 (black) or MHi-5 \<
+64 (grey). Each weight represents the conditional effect of the
+life-event on mental health risk from a logistic regression including
+all life-events and wave controls.*
 
 <br><br>
 
-#### Effect of life events on mental wellbeing
+#### Linear mental health changes for each quartile
 
-Standardized coefficients from the fixed effect regression of life
-events representing the amount of change in MHi-5 scores around each
-life event are shown below.
+Quantile regression was conducted to compare the amount of change in
+mental health score (K10 or MHi-5) between different quartiles of the
+response variable. Each regression included all life events (and yearly
+controls) so the coefficients
+(![\\beta](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cbeta "\beta")s)
+represent the amount of unique change after each life event in K10 or
+MHi-5 units.
 
-##### Figure 2. Time-varying effects of different life events
+##### Figure 2. Linear regression weight of each life-event on mental health score
 
-![](results/figure_2-1.png)<!-- --> <br><br>
+![](results/figure_2-1.png)<!-- -->
 
-The beta coefficients from these models were used to assign weightings
-to each event at different time points: 12 mo prior to the event, 3 mo
-post event, and 12 mo post event. The sign of the beta coefficients was
-reversed (multiplied by -1) to obtain weights which produce higher
-values for worse events.
-
-#### Table 1. Time-varying weights for life events
-
-``` r
-# Weights are determined from coefficients at each time point. Only significant
-# coefficients are used. 
-if (!file.exists("results/shit_happens_weights.rds")) {
-  
-  shit_happens_weights <- map(fits, ~tidy(., effects = "fixed", conf.int = T)) %>%
-    bind_rows(.id = "event") %>%
-    filter(term %in% c("timepre12", "timepost03", "timepost12")) %>%
-    transmute(
-      event,
-      term = str_remove(term, "time"),
-      estimate = if_else(0 > conf.low & 0 < conf.high, 
-                         0, 
-                         round(-1*estimate, 2))
-    ) %>%
-    spread(term, estimate) %>%
-    mutate(code = recode(event, !!!named_events)) %>%
-    select(event, code, pre12, post03, post12) %>%
-    write_rds("results/shit_happens_weights.rds")
-} 
-
-# The weights were selected from the largest coefficient (post 3 month event), 
-# and we only used positive weights  
-le_weights <- read_rds("results/shit_happens_weights.rds") %>%
-  select(event, code, weight = post03) %>% # select post03 or post12
-  mutate(weight = if_else(weight < 0, 0, weight))
-```
-
-<img src="results/weight_table_1.png" alt="Table 1" style="height: 800px;"/>
-
-<br>
-
-The impact of events on mental health (MHi-5 scores) varies by event and
-by time. Consequently, the weighting of each event varies. For example,
-death of spouse (`Widowed`) and divorce or separation (`Divorced`) are
-the two worst events at 3 mo afterwards, however by 12 mo afterwards
-`Bankruptcy` is the worst event, with `Widowed` equal second (along with
-serious injury `Injured`) and `Divorced` is equal eighth and not
-significantly different from zero (*p* \> .05).
-
-Some events have a positive effect on mental health (MHi-5 scores) and
-so are given a negative weighting in this scheme. Marriage, childbirth
-and pregnancy all have negative weights up to 12 months before the event
-and three months afterwards. At 12 months after these events, the weight
-is not significantly different from zero (*p* \> .05), highlighting the
-temporary emotional impact of these positive life events (nb. changes to
-life satisfaction scores have longer impacts after these events, but not
-considered here).
+*Figure 2 legend: The median and range of the coefficients from the ten
+training models of each life event on K10 score (left panel) or MHi-5
+score (right panel). Each weight represents the unique effect of the
+life-event on mental health score from a quantile regression including
+all life-events and yearly controls.*
 
 <br><br>
 
-##### Table 2. Bivariate associations with weighted scores
+### Discrimination
 
-``` r
-events %>%
-  gather("key", "val", lebth:levio) %>%
-  left_join(select(le_weights, key = code, weight), by = "key") %>% 
-  mutate(le_weight = val * weight) %>% 
-  filter(!is.na(le_weight)) %>%
-  arrange(xwaveid, wave) %>%
-  group_by(xwaveid, wave) %>%
-  summarise(weighted = sum(le_weight),
-            unweighted = sum(val),
-            .groups = "drop") %>%
-  left_join(
-    select(demographics, xwaveid, wave, losat, losatyh, pdk10rc, pdk10s, ghmh),
-    by = c("xwaveid", "wave")
-  ) %>% 
-  summarise(
-    unweighted = cor(unweighted, weighted, use = "complete.obs"),
-    `MHi-5` = cor(ghmh, weighted, use = "complete.obs"),
-    `K10 risk category` = cor(pdk10rc, weighted, method = "spearman", use = "complete.obs"),
-    `K10 score` = cor(pdk10s, weighted, method = "spearman", use = "complete.obs"),
-    `Health` = cor(losatyh, weighted, use = "complete.obs"),
-    `Life-satisfaction` = cor(losat, weighted, use = "complete.obs")
-  ) %>%
-  mutate(across(everything(), ~round(., 3)))
-```
-
-| unweighted |  MHi-5 | K10 risk category | K10 score | Health | Life-satisfaction |
-|-----------:|-------:|------------------:|----------:|-------:|------------------:|
-|      0.661 | -0.221 |             0.164 |     0.174 | -0.195 |            -0.185 |
+Discrimination is the ability of the predicted risk score to
+differentiate between people at risk of mental illness from people who
+are not at risk. We used *strictly proper scoring rules* (Merkle &
+Steyvers, 2013) to compare the probablistic predictions from different
+models, as these do not require an arbitrary probability threshold and
+make full use of the entire range of predicted probabilities (Harrell et
+al., 2015). A *proper* concordance- or c-index (AUC) was calculated to
+represent the ability of the model to differentiate between those who
+are or are not at risk of mental illness, where a value of 0.5
+represents chance and 1 represents perfect discrimination. We also
+calculate the root mean square error (equivalent to a *root* Brier score
+in this two-class problem) and the mean log loss where lower scores are
+better. Mean log loss gives more credit to extreme correct predictions,
+but if the model assigns a certain (i.e., 0 or 1) but incorrect
+probability to any prediction then it will score infinity (Kruppa, Liu,
+Biau, et al., 2014; Kruppa, Liu, Diener, et al., 2014).
 
 <br>
 
-The Pearson correlation between the weighted and unweighted scores was
-moderate (*r* = 0.66), indicating less than 50 percent common variance
-between the variables (*r^2* = 0.44). The weighted score was also
-positively associated with the K10 risk category and K10 score. There
-was only a slight negative correlation with MHi-5 score in the same year
-(*r* = -0.22), which explained less than 5 percent of the variance in
-the weighted score (*r^2* = .049).
+#### Risk of mental illness discrimination
+
+##### Table 2. K10 risk model discrimination performance for weighted and unweighted life events
+
+<img src="results/K10ill_table_2.png" alt="Table 1a" style="height: 125px;"/>
 
 <br><br>
 
-#### Predictive value of weights
+##### Table 3. MHi-5 risk model discrimination performance for weighted and unweighted life events
 
-Our second aim was to determine the predictive value of using weighted
-relative to unweighted scores. We estimated the predictive value of the
-weighted scores for risk of high or very high psychological distress in
-the following year (K10 \> 21, Kessler et al., 2002, 2003). While the
-K10 is not a diagnostic instrument, the probability is high that those
-who score above the cut-point for very high distress have a common
-mental disorder (i.e., over 85%, Andrews & Slade, 2001), and it has good
-psychometric properties when identifying DSM-V disorders in a communnity
-sample (AUC 0.877, Batterham, Sunderland, Slade, Calear, & Carragher,
-2018).
+<img src="results/mhi5ill_table_3.png" alt="Table 3" style="height: 125px;"/>
 
-Importantly, only years prior to the first illness event were included,
-in order to prevent any influence of the first illness on life events
-(or the likelihood of reporting life events), or the contemporaneous
-influence of a third variable on both. For this reason, the estimates we
-report are not “contemporaneous associations” between life events and
-illness, but instead the (1-year) lagged effect.
+<br><br>
 
-Because K10 was only collected in 2007 and then every second year
-afterwards, we only included predictors from 2006, 2008, 2010, 2012,
-2014, 2016 and 2018.
+**Key points**
 
-``` r
-if (file.exists("results/modelframe.rds")) {
-  
-  modelframe <- read_rds("results/modelframe.rds")
-  
-} else {
-  
-  xvars <- events %>%
-    gather("key", "val", lebth:levio) %>%
-    left_join(select(le_weights, key = code, weight), by = "key") %>% 
-    mutate(le_weight = val * weight) %>% 
-    filter(!is.na(le_weight)) %>%
-    arrange(xwaveid, wave) %>%
-    group_by(xwaveid, wave) %>%
-    summarise(weighted = sum(le_weight),
-              unweighted = sum(val),
-              .groups = "drop") 
-  
-  illness.k10 <- demographics %>%
-    select(xwaveid, wave, pdk10rc) %>% 
-    mutate(ill = pdk10rc %in% 3:4) %>% # FALSE includes NA
-    group_by(xwaveid) %>%
-    mutate(
-      ill_sum = order_by(wave, cumsum(ill)), # count illness events
-      ill_next_year = lead(ill, order_by = wave) # flag years which precede illness
-    ) %>% 
-    filter(ill_sum == 0) %>% # select years prior to first illness
-    select(xwaveid, wave, ill_next_year) %>%
-    ungroup()
-  
-  modelframe <- left_join(illness.k10, xvars, by = c("xwaveid", "wave")) %>%
-    select(xwaveid, wave, ill_next_year, weighted, unweighted) %>%
-    filter(wave %in% letters[c(6, 8, 10, 12, 14, 16, 18, 20)])
-  
-  write_rds(modelframe, "results/modelframe.rds")
-  
-}
-```
+-   Discrimination by unweighted or weighted life events was low (i.e,
+    AUC \~ 0.6)
+-   Weighted life events provided better discrimination than unweighted
+    in every independent test sample
 
-Our predictive modelling strategy was to first estimate the total effect
-associated with the weighted and unweighted scores, and then partition
-the total effect into between-person and within-person effects. The
-total effect and the between-person effect are important estimates of
-the predictive value of life events for future mental illness across the
-population, however they are also affected/biased by differences between
-people, such as gender, age, wealth or stable personality traits
-(time-invariant features). We are mostly interested in the within-person
-effect since that tells us whether recent life events can play a role in
-future mental illness of an individual, after removing any other
-(stable) differences between people. The within-person estimate is thus
-more clincally relevant (nb. the within-person estimates may still be
-subject to other (unmeasured) time-varying confounds).
+<br><br>
 
-As the weights are a time-varying covariate, we used a multi-level model
-with random intercepts for each person. To partition the total effect,
-we employed within-person centering (equivalent to a fixed effects
-model) to distinguish the within- and between-person contribution
-separately. Thus the within-person estimates represent the strength of
-the 1-year lagged association between the weights and high psychological
-distress, after removing stable between-person differences in the level
-of the predictor and the outcome (Ligthart-Smith, 2016; Rohrer &
-Murayama, 2021). It is unaffected by unobserved time-invariant
-confounders (an important advantage), but it likewise cannot estimate
-the effect of time-invariant variables in the context of the model such
-as gender or other stable demographic features (these can be estimated
-by a different/separate model if of interest).
+#### Mental health score change discrimination
 
-The weighted and unweighted scores were standardized and included in the
-same model in order to compare the relative importance of each. The
-estimated terms are expressed as odds ratios (nb. `exponentiate=T`), so
-an OR \> 1 indicates an increased risk of mental illness and an OR \< 1
-indicates less risk:
+Quantile regression predictions were compared with OLS predictions to
+determine whether differences in baseline levels of mental health
+explained more variance in the effect of life events on mental health
+score. Quantile and OLS models were compared for ten random splits and
+the median and range of discrimination scores are presented.
 
-##### Table 3. Comparing predictive value of weighted and unweighted life events
+`ccc` (concordance correlation coefficient) is a metric of both
+consistency/correlation and accuracy, while metrics such as `rmse` (root
+mean square error) are strictly for accuracy and metrics such as `rsq`
+(r-squared) are strictly for consistency/correlation.
 
-``` r
-# Fit model (or load if it already exists!)
-if (file.exists("results/ztotalfitall.rds")) {
-  
-  totalfitall <- read_rds("results/ztotalfitall.rds")
-  
-} else {
-  
-  #### Total effects model ####
-  # Scale the weighted and unweighted scores over the whole sample
-  df <- modelframe %>%
-    mutate(across(c(weighted, unweighted), ~c(scale(.))),
-           ill_next_year = as.factor(ill_next_year))
-  
-  totalfitall <- glmer(
-    ill_next_year ~ weighted + unweighted + (1|xwaveid),
-    data = df, 
-    family = binomial)
-  
-  write_rds(totalfitall, "results/ztotalfitall.rds")
-}
+##### Table 4. K10 model discrimination for OLS and quantile regression
 
+<img src="results/K10lm_table_4.png" alt="Table 4" style="height: 150px;"/>
 
+<br><br>
 
-# Fit model (or load if it already exists!)
-if (file.exists("results/zpartfitall.rds")) {
-  
-  partfitall <- read_rds("results/zpartfitall.rds")
-  
-} else {
-  
-  #### Within vs Between model ####
-  # Within-person mean centering was performed to remove the influence of any 
-  # differences between people on the estimate. 
-  df.m <- modelframe %>%
-    group_by(xwaveid) %>%
-    summarise(
-      weighted.between = mean(weighted, na.rm=T),
-      unweighted.between = mean(unweighted, na.rm=T),
-      .groups = "drop"
-    ) %>%
-    mutate(across(c(weighted.between, unweighted.between), ~c(scale(.))))
-  
-  df <- modelframe %>%
-    filter(!is.na(ill_next_year)) %>%
-    group_by(xwaveid) %>%
-    mutate(across(c(weighted, unweighted), ~c(scale(.)))) %>%
-    ungroup() %>%
-    replace_na(list(weighted = 0, unweighted = 0)) %>%
-    left_join(df.m, by = "xwaveid") %>%
-    mutate(ill_next_year = as.factor(ill_next_year)) %>%
-    rename(weighted.within = weighted, unweighted.within = unweighted)
-  
-  partfitall <- glmer(
-    ill_next_year ~ weighted.within + weighted.between + 
-      unweighted.within + unweighted.between + (1|xwaveid),
-    data = df, 
-    family = binomial)
-  
-  write_rds(partfitall, "results/zpartfitall.rds")
-}
+##### Table 5. MHi-5 model discrimination for OLS and quantile regression
 
-
-# Print table
-bind_rows(
-  tidy(totalfitall, effects = "fixed", conf.int=T, exponentiate=T) %>%
-    mutate(effect = "Total"),
-  tidy(partfitall, effects = "fixed", conf.int=T, exponentiate=T) %>%
-    mutate(effect = "Partitioned")
-) %>%
-  filter(term != "(Intercept)") %>%
-  select(-statistic) %>%
-  select(-p.value, everything()) %>%
-  mutate(across(estimate:conf.high, ~round(., 2))) 
-```
-
-| effect      | term               | estimate | std.error | conf.low | conf.high |   p.value |
-|:------------|:-------------------|---------:|----------:|---------:|----------:|----------:|
-| Total       | weighted           |     1.34 |      0.04 |     1.26 |      1.42 | 0.0000000 |
-| Total       | unweighted         |     0.93 |      0.03 |     0.87 |      0.99 | 0.0251346 |
-| Partitioned | weighted.within    |     1.15 |      0.03 |     1.09 |      1.21 | 0.0000005 |
-| Partitioned | weighted.between   |     1.27 |      0.04 |     1.20 |      1.34 | 0.0000000 |
-| Partitioned | unweighted.within  |     0.91 |      0.02 |     0.86 |      0.95 | 0.0001648 |
-| Partitioned | unweighted.between |     1.44 |      0.04 |     1.36 |      1.52 | 0.0000000 |
+<img src="results/mhi5lm_table_5.png" alt="Table 5" style="height: 150px;"/>
 
 <br>
 
-The total predictive value of the weighted life event scores was
-positive, while unweighted total estimate was non-significant and
-negative (i.e., *β* \< 1, *p* \> .05).
+**Key points**
 
-After partitioning the total predictive value into within- and
-between-effects, the within-person effect of weighted scores was also
-positive (*β*OR = 1.15±.03, *p* \< .05), and the 95% confidence
-intervals indicated this was significantly higher than unweighted scores
-(which were negative; *β*OR = 0.91±.02, *p* \< .05). Thus weighted
-scores were better *positive* predictors of future mental illness than
-unweighted scores when considering change within-person. These
-within-person estimates represent the most clinically-relevant effect,
-here indicating a positive change in a person’s life event weighted
-score was associated with a risk of mental illness.
+-   Prediction by OLS is poor (r-squared \< 0.05)
+-   The quantile regression with different predictions for each quartile
+    provides moderate to good performance (e.g., r-squared \> 0.6)
 
-The between-person predictive value of weighted and unweighted scores
-were both positive (*β*OR = 1.27±.04 and 1.44±.04, *ps* \< .05) -
-indicating people who on average have a higher score are at more risk of
-mental illness, however this association may be affected by
-time-invariant third variables (gender, age, ses, personality traits).
+<br>
 
-<br><Br>
+<br><br>
 
-#### Mental illness predictions
+### Calibration
 
-The regression coefficients presented above were standardized to allow
-comparison of the effect size and precision, however they do not
-indicate the probability of increased risk. Here we estimate the
-predicted probability of risk over all values of weighted scores. We
-estimate the total predicted probability and the within-person predicted
-probability of high psychological distress in the following year.
+Calibration refers to how closely the predicted mental illness risk
+agrees with the observed mental illness risk (Moons et al., 2015), and
+was assessed by calculating the ratio of predicted to observed risk over
+low to high risk deciles in our dataset. Calibration is better as the
+ratio approaches 1:1. The quality of the risk score predictions was
+assessed by calculating risk scores in each each of the ten independent
+(random split) test sets, and then plotting the mean observed
+proportions versus mean predicted probabilities across deciles.
 
-##### Figure 3. Predicted mental-illness by weighted scores
+##### Figure 3.
 
 ![](results/figure_3-1.png)<!-- -->
 
-<br>
+<br><br>
 
-The risk of future mental illness (high or very high psychological
-distress) increased with weighted score. The within-person change had a
-larger impact on the level risk than the total effect, which reflects
-the relative importance of life events on individual mental health.
+**Key points**
+
+-   Calibration is very similar between weighted and unweighted life
+    events (dotted line vs solid line)
+-   Calibration is very similar between K10 and MHi-5 risk of mental
+    illness (left vs right panel)
+
+<br><br>
+
+#### To do
+
+1.  We could likely improve the risk weights by calculating them for
+    each K10 risk category  
+2.  Net reclassication improvement (NRI) is the net proportion of events
+    reclassified correctly plus the net proportion of nonevents
+    reclassified correctly
+3.  Reclassification table across different risk categories (show how
+    many individuals are reclassified from low to high risk)
+4.  Number needed to treat (NNT) improvement
+
+*(below could be added somewhere)*  
+We also report (improper) classification accuracy metrics which may be
+more familiar in a clinical context such as sensitivity, specificity and
+number-needed-to-treat (NNT). The NNT is the average number of patients
+who need to be treated to prevent one additional bad outcome (e.g. the
+number of patients that need to be treated for one of them to benefit
+compared with a control in a clinical trial). It is defined as the
+inverse of the absolute risk reduction: NNT = 1 / (*I*<sub>u</sub> —
+*I*<sub>e</sub>), where *I*<sub>e</sub> is the incidence in the treated
+(exposed) group, and *I*<sub>u</sub> is the incidence in the control
+(unexposed) group. However in this diagnostic/classification context it
+isn’t clear what would represent that quantity. The inverse of the
+Youden index (1/j) has been defined as the “number needed to diagnose”
+(NND), that is, the number of patients who need to be examined in order
+to correctly detect one person with the disease of interest in a study
+population of persons with and without the known disease (Linn & Grunau,
+2006). The same authors also proposed a predictive summary index (PSI =
+PPV + NPV - 1) to represent the gain in certainty of diagnosis. It’s
+inverse (1/PSI) represents the number of patients who need to be
+examined in order to correctly *predict* the diagnosis of one person
+(NNP). Whilst NND is insensitive to variation in disease prevalence,
+since it depends entirely on sensitivity and specificity, NNP is
+dependent on prevalence and therefore may be a better descriptor of
+diagnostic tests in patient populations with different prevalence of
+disease.
 
 <br><br>
 
@@ -602,47 +435,26 @@ bias for specific subpopulations, which is necessary for planning and
 designing public health services.
 
 We also report the predictive associations between weighted and
-unweighted life events and the 1-year high or very high psychological
-distress. The use of weights in life event scales has been debated since
-1960s. Originally generic weights rather than subjective weights were
-promoted on the grounds that generic weights are *a priori* independent
-from the experience of the event, and so can predict consequences of the
-stress exposure such as the risk of poor health. Here we are proposing a
-set of generic weights that are based on the average experience of the
-event from an independent and representative sample of the population.
+unweighted life events and the risk of mental illness. The use of
+weights in life event scales has been debated since 1960s. Originally
+generic weights rather than subjective weights were promoted on the
+grounds that generic weights are *a priori* independent from the
+experience of the event, and so can predict consequences of the stress
+exposure such as the risk of poor health. Here we are proposing a set of
+generic weights that are based on the average experience of the event
+from an independent and representative sample of the population.
 
 We demonstrate the use of these empirical weights improves the
-predictive value of a life-event scale for future mental illness,
-relative to an unweighted scale. Both weighted and unweighted scales
-improved predictions across individuals, with the unweighted scale have
-a slight advantage. However the use of weights improved predictions
-based on change within-person relative to unweighted, which represents
-the most clinically-relevant prediction context and is not subject to
-bias from unmeasured differences between people (e.g., gender, age,
-personality traits).
-
-Interestingly the rank-ordering of life events assigned by diverse
-subgroups are often highly correlated (*ρ* \> 0.9), suggesting a shared
-or generalizable experience of stress, which also supports the use of
-generic weights. Others have argued the generalizability of any life
-event scale will be limited to the population on which the weights were
-developed (B. S. Dohrenwend & Dohrenwend, 1974; Zimmerman, 1983). The
-HILDA sample on which our weights were developed was selected to be
-representative of Australia, but we expect the weights would be equally
-applicable to other developed Western nations.
-
-One limitation of using a life event schedule as employed here, is that
-events are broad and vaguely defined. For instance, there may be
-important differences in the response to divorce after an amicable
-seperation versus after marital conflict or infidelity (B. P.
-Dohrenwend, 2006). However estimating the population response to more
-detailed events is difficult in the currently available datasets, in
-which the items recording life events are broad and ill-defined for
-pragmatic reasons.
+predictive value of a life-event scale for mental illness risk, relative
+to an unweighted scale, however both weighted and unweighted scales had
+low discriminative performance with AUC generally not exceeding 0.6.
+However it is likely the risk of mental illness after major life-events
+varies with baseline mental health, and once this is captured then risk
+weights can account for substantially more variation.
 
 Problems in defining and sampling the relevant population for stressful
 life events are often present in life events research (see B. S.
-Dohrenwend & Dohrenwend, 1974), as post-hoc selection of people who
+Dohrenwend & Dohrenwend, 1974), as *post-hoc* selection of people who
 experienced a major life event is likely to result in biased estimates.
 That is, people who experienced a significant response to the life event
 are more likely to be selected by such post-hoc methods, even if only
@@ -657,6 +469,36 @@ here under HILDA’s probabilistic sampling method. However selection bias
 may still exist if some victims are less likely to report an event than
 others (e.g., homelessness, sexual assault, or severely affected
 sufferers).
+
+One limitation of using a life event schedule as employed here, is that
+events are broad and vaguely defined. For instance, there may be
+important differences in the response to divorce after an amicable
+seperation versus after marital conflict or infidelity (B. P.
+Dohrenwend, 2006). However estimating the population response to more
+detailed events is difficult in the currently available datasets, in
+which the items recording life events are broad and ill-defined for
+pragmatic reasons.
+
+<br><br>
+
+## Supplementary
+
+##### Figure S1. Frequency of each major life event in Australia between 2001-2020
+
+![](results/figure_s1-1.png)<!-- -->
+
+<br>
+
+The most frequent major life event is a illness or injury in a close
+family member (Family illness) or moving home (Moved) for approximately
+15 percent of Australians in any one-year period, while the least
+frequent is being detained in jail (Jailed) for less than 1 percent of
+Australians. The frequency of some events appear to have declined in the
+last two decades, including family illness (or injury), moving home
+(Moved), and starting a new job (Hired). There are no apparent
+increasing trends in the frequency of any event. It is unclear whether
+these temporal trends reflect real change in the Australian population
+or changes in the survey sample as the respondents age over time.
 
 <br><br>
 
@@ -694,6 +536,32 @@ crosswalk comparison of eight measures of psychological distress.
 
 </div>
 
+<div id="ref-brugha1990list" class="csl-entry">
+
+Brugha, T. S., & Cragg, D. (1990). The list of threatening experiences:
+The reliability and validity of a brief life events questionnaire. *Acta
+Psychiatrica Scandinavica*, *82*(1), 77–81.
+
+</div>
+
+<div id="ref-brugha1985list" class="csl-entry">
+
+Brugha, T., Bebbington, P., Tennant, C., & Hurry, J. (1985). The list of
+threatening experiences: A subset of 12 life event categories with
+considerable long-term contextual threat. *Psychological Medicine*,
+*15*(1), 189–194.
+
+</div>
+
+<div id="ref-collins2015transparent" class="csl-entry">
+
+Collins, G. S., Reitsma, J. B., Altman, D. G., & Moons, K. G. (2015).
+Transparent reporting of a multivariable prediction model for individual
+prognosis or diagnosis (TRIPOD): The TRIPOD statement. *Journal of
+British Surgery*, *102*(3), 148–158. <https://doi.org/10.1002/bjs.9736>
+
+</div>
+
 <div id="ref-dohrenwend2006inventorying" class="csl-entry">
 
 Dohrenwend, B. P. (2006). Inventorying stressful life events as risk
@@ -715,6 +583,24 @@ Their nature and effects.* John Wiley & Sons.
 Gray, M. J., Litz, B. T., Hsu, J. L., & Lombardo, T. W. (2004).
 Psychometric properties of the life events checklist. *Assessment*,
 *11*(4), 330–341. <https://doi.org/10.1177/1073191104269954>
+
+</div>
+
+<div id="ref-harrell2015regression" class="csl-entry">
+
+Harrell, F. E.others. (2015). *Regression modeling strategies: With
+applications to linear models, logistic regression, and survival
+analysis* (Vol. 608). Springer.
+<https://doi.org/10.1007/978-3-319-19425-7>
+
+</div>
+
+<div id="ref-hoeymans2004measuring" class="csl-entry">
+
+Hoeymans, N., Garssen, A. A., Westert, G. P., & Verhaak, P. F. (2004).
+Measuring mental health of the dutch population: A comparison of the
+GHQ-12 and the MHI-5. *Health and Quality of Life Outcomes*, *2*(1),
+1–6. <https://doi.org/10.1186/1477-7525-2-23>
 
 </div>
 
@@ -769,20 +655,76 @@ cognitive and affective wellbeing. *SSM-Population Health*, *10*,
 
 </div>
 
-<div id="ref-ligthart2016comparison" class="csl-entry">
+<div id="ref-kruppa2014theory" class="csl-entry">
 
-Ligthart-Smith, A. (2016). *A comparison of linear mixed models that
-include time-varying covariates*. Retrieved from
-<https://vrs.amsi.org.au/wp-content/uploads/sites/78/2016/03/Ligthart-Smith_VRS-Report.pdf>
+Kruppa, J., Liu, Y., Biau, G., Kohler, M., Koenig, I. R., Malley, J. D.,
+& Ziegler, A. (2014). Probability estimation with machine learning
+methods for dichotomous and multicategory outcome: theory. *Biometrical
+Journal*, *56*(4), 534–563. <https://doi.org/10.1002/bimj.201300068>
 
 </div>
 
-<div id="ref-rohrer2021these" class="csl-entry">
+<div id="ref-kruppa2014application" class="csl-entry">
 
-Rohrer, J. M., & Murayama, K. (2021). *These are not the effects you are
-looking for: Causality and the within-/between-person distinction in
-longitudinal data analysis*. Retrieved from
-<https://psyarxiv.com/tg4vj/>
+Kruppa, J., Liu, Y., Diener, H.-C., Holste, T., Weimar, C., König, I.
+R., & Ziegler, A. (2014). Probability estimation with machine learning
+methods for dichotomous and multicategory outcome: applications.
+*Biometrical Journal*, *56*(4), 564–583.
+<https://doi.org/10.1002/bimj.201300077>
+
+</div>
+
+<div id="ref-linn2006new" class="csl-entry">
+
+Linn, S., & Grunau, P. D. (2006). New patient-oriented summary measure
+of net total gain in certainty for dichotomous diagnostic tests.
+*Epidemiologic Perspectives & Innovations*, *3*(1), 1–9.
+<https://doi.org/10.1186/1742-5573-3-11>
+
+</div>
+
+<div id="ref-mchorney1994mos" class="csl-entry">
+
+McHorney, C. A., Ware Jr, J. E., Lu, J. R., & Sherbourne, C. D. (1994).
+The MOS 36-item short-form health survey (SF-36): III. Tests of data
+quality, scaling assumptions, and reliability across diverse patient
+groups. *Medical Care*, 40–66.
+
+</div>
+
+<div id="ref-mchorney1993mos" class="csl-entry">
+
+McHorney, C. A., Ware Jr, J. E., & Raczek, A. E. (1993). The MOS 36-item
+short-form health survey (SF-36): II. Psychometric and clinical tests of
+validity in measuring physical and mental health constructs. *Medical
+Care*, 247–263.
+
+</div>
+
+<div id="ref-merkle2013choosing" class="csl-entry">
+
+Merkle, E. C., & Steyvers, M. (2013). Choosing a strictly proper scoring
+rule. *Decision Analysis*, *10*(4), 292–304.
+<https://doi.org/10.1287/deca.2013.0280>
+
+</div>
+
+<div id="ref-moons2015transparent" class="csl-entry">
+
+Moons, K. G., Altman, D. G., Reitsma, J. B., Ioannidis, J. P.,
+Macaskill, P., Steyerberg, E. W., … Collins, G. S. (2015). Transparent
+reporting of a multivariable prediction model for individual prognosis
+or diagnosis (TRIPOD): Explanation and elaboration. *Annals of Internal
+Medicine*, *162*(1), W1–W73. <https://doi.org/10.7326/M14-0698>
+
+</div>
+
+<div id="ref-rumpf2001screening" class="csl-entry">
+
+Rumpf, H.-J., Meyer, C., Hapke, U., & John, U. (2001). Screening for
+mental health: Validity of the MHI-5 using DSM-IV axis i psychiatric
+disorders as gold standard. *Psychiatry Research*, *105*(3), 243–253.
+<https://doi.org/10.1016/S0165-1781(01)00329-8>
 
 </div>
 
@@ -818,6 +760,21 @@ general population. *Journal of Public Health*, *29*(5), 1071–1080.
 
 Turner, R. J., & Wheaton, B. (1997). Checklist measurement. *Measuring
 Stress: A Guide for Health and Social Scientists*, 29.
+
+</div>
+
+<div id="ref-ware2000sf" class="csl-entry">
+
+Ware Jr, J. E. (2000). SF-36 health survey update. *Spine*, *25*(24),
+3130–3139.
+
+</div>
+
+<div id="ref-ware1992mos" class="csl-entry">
+
+Ware Jr, J. E., & Sherbourne, C. D. (1992). The MOS 36-item short-form
+health survey (SF-36): I. Conceptual framework and item selection.
+*Medical Care*, 473–483.
 
 </div>
 
